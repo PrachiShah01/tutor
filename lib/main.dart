@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tutor/button.dart';
 import 'package:tutor/loginScreen.dart';
 import 'package:tutor/signupScreen.dart';
 import 'welcomeScreen.dart';
@@ -25,7 +26,9 @@ class MyApp extends StatelessWidget {
         '/home': (_) => homeScreen(),
         '/login': (_) => loginScreen(),
         '/signup': (_) => signupScreen(),
-        '/forgot': (_) => forgotPass()
+        '/forgot': (_) => forgotPass(),
+        '/tutorapp': (_) => tutorApp(),
+        '/main': (_) => MainScreen()
       },
     );
   }

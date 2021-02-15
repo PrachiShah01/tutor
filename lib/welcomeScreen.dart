@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:splashscreen/splashscreen.dart';
+import 'package:tutor/button.dart';
 import 'constants.dart';
 
 class tutorApp extends StatefulWidget {
@@ -15,7 +16,7 @@ class _tutorAppState extends State<tutorApp> {
       photoSize: 150,
       seconds: 3,
       loaderColor: Colors.blue,
-      navigateAfterSeconds: MainScreen(),
+      navigateAfterSeconds: gatewayPage(),
     );
   }
 }
