@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:tutor/button.dart';
 import 'package:tutor/loginScreen.dart';
 import 'package:tutor/signupScreen.dart';
-import 'welcomeScreen.dart';
+import 'package:tutor/welcome.dart';
+
 import 'homeScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
         '/signup': (_) => signupScreen(),
         '/forgot': (_) => forgotPass(),
         '/tutorapp': (_) => tutorApp(),
-        '/main': (_) => MainScreen()
+        '/gateway': (_) => gatewayPage()
       },
     );
   }

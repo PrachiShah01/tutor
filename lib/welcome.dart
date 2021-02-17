@@ -12,8 +12,7 @@ class _tutorAppState extends State<tutorApp> {
   @override
   Widget build(BuildContext context) {
     return SplashScreen(
-      image: Image.asset('assets/tutorappicon.png'),
-      photoSize: 150,
+      imageBackground: AssetImage('assets/welcome.png'),
       seconds: 3,
       loaderColor: Colors.blue,
       navigateAfterSeconds: gatewayPage(),

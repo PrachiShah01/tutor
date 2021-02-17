@@ -149,7 +149,7 @@ class _loginScreenState extends State<loginScreen> {
                       Navigator.pushNamed(context, '/forgot');
                     },
                     child: Text(
-                      'Forgot Password',
+                      'Forgot Password?',
                       style: TextStyle(
                         color: kButtonColor,
                       ),
@@ -175,7 +175,7 @@ class _loginScreenState extends State<loginScreen> {
                               .instance
                               .signInWithEmailAndPassword(
                                   email: email, password: password);
-                          Navigator.pushNamed(context, '/home');
+                          Navigator.pushReplacementNamed(context, '/home');
                         } on FirebaseAuthException catch (e) {
                           if (e.code == 'user-not-found') {
                             Toast.show("No user found for that email", context,

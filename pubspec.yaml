@@ -55,6 +55,9 @@ flutter:
     - assets/loginpage.png
     - assets/mainscreenimage.png
     - assets/tutorappicon.png
+    - assets/leftbottom.png
+    - assets/topright.png
+    - assets/welcome.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

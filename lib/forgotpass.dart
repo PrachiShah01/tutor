@@ -9,6 +9,7 @@ class forgotPass extends StatefulWidget {
 class _forgotPassState extends State<forgotPass> {
   String email;
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  User user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,7 +58,7 @@ class _forgotPassState extends State<forgotPass> {
                   }
                   return null;
                 },
-                onSaved: (String value) {
+                onChanged: (String value) {
                   email = value;
                 },
               ),
