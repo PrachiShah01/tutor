@@ -14,7 +14,6 @@ class _loginScreenState extends State<loginScreen> {
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
   String email, password, input;
-
   bool _secureTextPass = true;
 
   @override
@@ -28,11 +27,12 @@ class _loginScreenState extends State<loginScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Container(
-                  child: Image.asset('assets/loginpage.png',
-                      width: 350, height: 300),
+                  child: Image.asset(
+                    'assets/head.png',
+                  ),
                 ),
                 SizedBox(
-                  height: 5,
+                  height: 30,
                 ),
                 Text(
                   'Login',
@@ -149,7 +149,7 @@ class _loginScreenState extends State<loginScreen> {
                       Navigator.pushNamed(context, '/forgot');
                     },
                     child: Text(
-                      'Forgot Password?',
+                      'Forgot Password',
                       style: TextStyle(
                         color: kButtonColor,
                       ),
@@ -175,7 +175,7 @@ class _loginScreenState extends State<loginScreen> {
                               .instance
                               .signInWithEmailAndPassword(
                                   email: email, password: password);
-                          Navigator.pushReplacementNamed(context, '/home');
+                          Navigator.pushNamed(context, '/home');
                         } on FirebaseAuthException catch (e) {
                           if (e.code == 'user-not-found') {
                             Toast.show("No user found for that email", context,

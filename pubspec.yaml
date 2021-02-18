@@ -33,6 +33,7 @@ dependencies:
   firebase_core: ^0.7.0
   cloud_firestore: ^0.16.0
   toast: ^0.1.5
+  firebase_database: ^6.0.0
 
 
 dev_dependencies:
@@ -58,6 +59,8 @@ flutter:
     - assets/leftbottom.png
     - assets/topright.png
     - assets/welcome.png
+    - assets/head.png
+    - assets/nextbutton.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

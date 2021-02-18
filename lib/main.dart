@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tutor/button.dart';
+import 'package:tutor/detailPage.dart';
 import 'package:tutor/loginScreen.dart';
 import 'package:tutor/signupScreen.dart';
 import 'package:tutor/welcome.dart';
@@ -9,6 +10,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'forgotpass.dart';
+import 'detailPage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,7 +31,8 @@ class MyApp extends StatelessWidget {
         '/signup': (_) => signupScreen(),
         '/forgot': (_) => forgotPass(),
         '/tutorapp': (_) => tutorApp(),
-        '/gateway': (_) => gatewayPage()
+        '/gateway': (_) => gatewayPage(),
+        '/detail': (_) => detailPage()
       },
     );
   }
