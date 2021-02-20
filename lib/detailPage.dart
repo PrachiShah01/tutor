@@ -1,7 +1,7 @@
+import 'package:firebase_database/ui/firebase_animated_list.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
-
-import 'Data.dart';
 
 class detailPage extends StatefulWidget {
   @override
@@ -9,63 +9,115 @@ class detailPage extends StatefulWidget {
 }
 
 class _detailPageState extends State<detailPage> {
-  List<Data> dataList = [];
-
+  Query _ref;
   @override
   void initState() {
     super.initState();
-    dataList.clear();
-    DatabaseReference databaseReference =
-        FirebaseDatabase.instance.reference().child('tutor');
-    databaseReference.once().then((DataSnapshot dataSnapshot) {
-      var keys = dataSnapshot.value.keys;
-      var values = dataSnapshot.value;
+    _ref = FirebaseDatabase.instance
+        .reference()
+        .child('tutor')
+        .orderByChild('Name');
+  }
 
-      for (var key in keys) {
-        Data data = new Data(
-          values[key]["Email"],
-          values[key]["Name"],
-          values[key]["MobileNumber"],
-        );
-        dataList.add(data);
-        setState(() {});
-      }
-    });
+  Widget _buildTutorItem({Map tutor}) {
+    return Container(
+      child: Card(
+        margin: EdgeInsets.all(10),
+        elevation: 10,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        borderOnForeground: true,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(left: 20.0, bottom: 10.0),
+              child: Row(
+                children: <Widget>[
+                  Icon(
+                    Icons.person,
+                    color: Colors.black54,
+                    size: 20,
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    tutor['Name'],
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 16.0, bottom: 10.0),
+              child: Row(
+                children: <Widget>[
+                  Icon(
+                    Icons.email,
+                    color: Colors.black54,
+                    size: 20,
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    tutor['Email'],
+                    style: TextStyle(
+                      fontSize: 15,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 16.0, bottom: 10.0),
+              child: Row(
+                children: <Widget>[
+                  Icon(
+                    Icons.call,
+                    color: Colors.black54,
+                    size: 20,
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    tutor['MobileNumber'].toString(),
+                    style: TextStyle(
+                      fontSize: 15,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
           title: Text('tutor'),
         ),
-        body: dataList.length == 0
-            ? Center(child: Text('No data is available'))
-            : ListView.builder(
-                itemCount: dataList.length,
-                itemBuilder: (_, index) {
-                  return CardUI(dataList[index].Email, dataList[index].Name,
-                      dataList[index].MobileNumber);
-                }),
-      ),
-    );
-  }
-
-  Widget CardUI(String Email, String Name, String MobileNumber) {
-    return Card(
-      child: Column(
-        children: <Widget>[
-          Text(Name),
-          SizedBox(
-            height: 5,
+        body: Container(
+          height: double.infinity,
+          child: FirebaseAnimatedList(
+            query: _ref,
+            itemBuilder: (BuildContext context, DataSnapshot snapshot,
+                Animation<double> animation, int index) {
+              Map tutor = snapshot.value;
+              return _buildTutorItem(tutor: tutor);
+            },
           ),
-          Text(Email),
-          SizedBox(
-            height: 5,
-          ),
-          Text(MobileNumber),
-        ],
+        ),
       ),
     );
   }
