@@ -15,7 +15,9 @@ class _detailPageState extends State<detailPage> {
     super.initState();
     _ref = FirebaseDatabase.instance
         .reference()
-        .child('tutor')
+        .child('HigherSecondary')
+        .child('Science')
+        .child('Biology')
         .orderByChild('Name');
   }
 
