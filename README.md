@@ -2,15 +2,6 @@
 
 A new Flutter application.
 
-## Getting Started
+## Overview
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+There are number of tutors in the town. So many tutors are very good and skilled but not famous for teaching. Aim of this mobile application is to make community of tutors. So, students can find the most reliable and skilled teacher for them. 
