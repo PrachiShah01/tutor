@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class homeScreen extends StatefulWidget {
@@ -21,184 +20,116 @@ class _homeScreenState extends State<homeScreen> {
             Align(
               alignment: Alignment(0, 0),
               child: SingleChildScrollView(
-                child: Column(
-                  children: <Widget>[
-                    RaisedButton(
-                      padding: EdgeInsets.only(left: 10),
-                      color: Color(0xFF2829A6),
-                      shape: new RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(20),
-                          topLeft: Radius.circular(20),
-                          topRight: Radius.circular(50),
-                          bottomRight: Radius.circular(50),
-                        ),
-                      ),
-                      onPressed: () {},
-                      child: Row(
+                child: Container(
+                  margin: EdgeInsets.all(10),
+                  child: Column(
+                    children: <Widget>[
+                      Row(
                         children: <Widget>[
-                          Text(
-                            'Engineering',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                            ),
+                          HomeButton(
+                            label: 'Primary',
+                            onpressed: () {
+                              Navigator.pushNamed(context, '/detail');
+                            },
                           ),
                           SizedBox(
-                            width: 210,
+                            width: 10,
                           ),
-                          Image.asset(
-                            'assets/nextbutton.png',
-                            width: 30,
-                            height: 30,
+                          HomeButton(
+                            label: 'Secondary',
+                            onpressed: () {
+                              Navigator.pushNamed(context, '/detail');
+                            },
                           ),
                         ],
                       ),
-                    ),
-                    RaisedButton(
-                      padding: EdgeInsets.only(left: 10, right: 0),
-                      color: Color(0xFF2829A6),
-                      shape: new RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(20),
-                          topLeft: Radius.circular(20),
-                          topRight: Radius.circular(50),
-                          bottomRight: Radius.circular(50),
-                        ),
+                      SizedBox(
+                        height: 10,
                       ),
-                      onPressed: () {},
-                      child: Row(
+                      Row(
                         children: <Widget>[
-                          Text(
-                            'Medical',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                            ),
+                          HomeButton(
+                            label: 'Higher',
+                            onpressed: () {
+                              Navigator.pushNamed(context, '/detail');
+                            },
                           ),
                           SizedBox(
-                            width: 245,
+                            width: 10,
                           ),
-                          Image.asset(
-                            'assets/nextbutton.png',
-                            width: 30,
-                            height: 30,
+                          HomeButton(
+                            label: 'Engineering',
+                            onpressed: () {
+                              Navigator.pushNamed(context, '/detail');
+                            },
                           ),
                         ],
                       ),
-                    ),
-                    RaisedButton(
-                      padding: EdgeInsets.only(left: 10, right: 0),
-                      color: Color(0xFF2829A6),
-                      shape: new RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(20),
-                          topLeft: Radius.circular(20),
-                          topRight: Radius.circular(50),
-                          bottomRight: Radius.circular(50),
-                        ),
+                      SizedBox(
+                        height: 10,
                       ),
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/detail');
-                      },
-                      child: Row(
+                      Row(
                         children: <Widget>[
-                          Text(
-                            'Higher Secondary',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                            ),
+                          HomeButton(
+                            label: 'Medical',
+                            onpressed: () {
+                              Navigator.pushNamed(context, '/detail');
+                            },
                           ),
                           SizedBox(
-                            width: 157,
+                            width: 10,
                           ),
-                          Image.asset(
-                            'assets/nextbutton.png',
-                            width: 30,
-                            height: 30,
+                          HomeButton(
+                            label: '',
+                            onpressed: () {
+                              Navigator.pushNamed(context, '/detail');
+                            },
                           ),
                         ],
                       ),
-                    ),
-                    RaisedButton(
-                      padding: EdgeInsets.only(left: 10, right: 0),
-                      color: Color(0xFF2829A6),
-                      shape: new RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(20),
-                          topLeft: Radius.circular(20),
-                          topRight: Radius.circular(50),
-                          bottomRight: Radius.circular(50),
+                      FlatButton(
+                        onPressed: () async {
+                          await FirebaseAuth.instance.signOut();
+                          Navigator.pushNamed(context, '/gateway');
+                        },
+                        child: Text(
+                          'Sign out',
                         ),
                       ),
-                      onPressed: () {},
-                      child: Row(
-                        children: <Widget>[
-                          Text(
-                            'Secondary',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 220,
-                          ),
-                          Image.asset(
-                            'assets/nextbutton.png',
-                            width: 30,
-                            height: 30,
-                          ),
-                        ],
-                      ),
-                    ),
-                    RaisedButton(
-                      padding: EdgeInsets.only(left: 10, right: 0),
-                      color: Color(0xFF2829A6),
-                      shape: new RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(20),
-                          topLeft: Radius.circular(20),
-                          topRight: Radius.circular(50),
-                          bottomRight: Radius.circular(50),
-                        ),
-                      ),
-                      onPressed: () {},
-                      child: Row(
-                        children: <Widget>[
-                          Text(
-                            'Primary',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 245,
-                          ),
-                          Image.asset(
-                            'assets/nextbutton.png',
-                            width: 30,
-                            height: 30,
-                          ),
-                        ],
-                      ),
-                    ),
-                    FlatButton(
-                      onPressed: () async {
-                        await FirebaseAuth.instance.signOut();
-                        Navigator.pushNamed(context, '/gateway');
-                      },
-                      child: Text(
-                        'Sign out',
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class HomeButton extends StatelessWidget {
+  HomeButton({this.label, this.onpressed});
+  final String label;
+  final Function onpressed;
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: RaisedButton(
+        padding: EdgeInsets.all(25),
+        color: Color(0xFF2829A6),
+        shape: new RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(20),
+          ),
+        ),
+        onPressed: onpressed,
+        child: Text(
+          label,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+          ),
         ),
       ),
     );

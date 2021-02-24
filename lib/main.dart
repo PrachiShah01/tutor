@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tutor/Infopage.dart';
 import 'package:tutor/button.dart';
 import 'package:tutor/detailPage.dart';
 import 'package:tutor/loginScreen.dart';
@@ -32,7 +33,8 @@ class MyApp extends StatelessWidget {
         '/forgot': (_) => forgotPass(),
         '/tutorapp': (_) => tutorApp(),
         '/gateway': (_) => gatewayPage(),
-        '/detail': (_) => detailPage()
+        '/detail': (_) => detailPage(),
+        '/info': (_) => infoPage(),
       },
     );
   }

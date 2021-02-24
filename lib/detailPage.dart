@@ -32,25 +32,30 @@ class _detailPageState extends State<detailPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(left: 20.0, bottom: 10.0),
-              child: Row(
-                children: <Widget>[
-                  Icon(
-                    Icons.person,
-                    color: Colors.black54,
-                    size: 20,
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                    tutor['Name'],
-                    style: TextStyle(
-                      fontSize: 20,
+            GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, '/info');
+              },
+              child: Padding(
+                padding: const EdgeInsets.only(left: 20.0, bottom: 10.0),
+                child: Row(
+                  children: <Widget>[
+                    Icon(
+                      Icons.person,
+                      color: Colors.black54,
+                      size: 20,
                     ),
-                  ),
-                ],
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      tutor['Name'],
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
             Padding(
@@ -106,18 +111,17 @@ class _detailPageState extends State<detailPage> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: AppBar(
-          title: Text('tutor'),
-        ),
-        body: Container(
-          height: double.infinity,
-          child: FirebaseAnimatedList(
-            query: _ref,
-            itemBuilder: (BuildContext context, DataSnapshot snapshot,
-                Animation<double> animation, int index) {
-              Map tutor = snapshot.value;
-              return _buildTutorItem(tutor: tutor);
-            },
+        body: SafeArea(
+          child: Container(
+            height: double.infinity,
+            child: FirebaseAnimatedList(
+              query: _ref,
+              itemBuilder: (BuildContext context, DataSnapshot snapshot,
+                  Animation<double> animation, int index) {
+                Map tutor = snapshot.value;
+                return _buildTutorItem(tutor: tutor);
+              },
+            ),
           ),
         ),
       ),
