@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
         '/tutorapp': (_) => tutorApp(),
         '/gateway': (_) => gatewayPage(),
         '/detail': (_) => detailPage(),
-        '/info': (_) => infoPage(),
+        //'/info': (_) => infoPage(),
       },
     );
   }

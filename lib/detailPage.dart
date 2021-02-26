@@ -17,11 +17,10 @@ class _detailPageState extends State<detailPage> {
         .reference()
         .child('HigherSecondary')
         .child('Science')
-        .child('Biology')
-        .orderByChild('Name');
+        .child('Biology');
   }
 
-  Widget _buildTutorItem({Map tutor}) {
+  Widget _buildTutorItem({Map Biology}) {
     return Container(
       child: Card(
         margin: EdgeInsets.all(10),
@@ -49,7 +48,7 @@ class _detailPageState extends State<detailPage> {
                       height: 5,
                     ),
                     Text(
-                      tutor['Name'],
+                      Biology['Name'],
                       style: TextStyle(
                         fontSize: 20,
                       ),
@@ -71,7 +70,7 @@ class _detailPageState extends State<detailPage> {
                     height: 5,
                   ),
                   Text(
-                    tutor['Email'],
+                    Biology['Email'],
                     style: TextStyle(
                       fontSize: 15,
                     ),
@@ -92,7 +91,7 @@ class _detailPageState extends State<detailPage> {
                     height: 5,
                   ),
                   Text(
-                    tutor['MobileNumber'].toString(),
+                    Biology['MobileNumber'].toString(),
                     style: TextStyle(
                       fontSize: 15,
                     ),
@@ -118,8 +117,8 @@ class _detailPageState extends State<detailPage> {
               query: _ref,
               itemBuilder: (BuildContext context, DataSnapshot snapshot,
                   Animation<double> animation, int index) {
-                Map tutor = snapshot.value;
-                return _buildTutorItem(tutor: tutor);
+                Map biology = snapshot.value;
+                return _buildTutorItem(Biology: biology);
               },
             ),
           ),
