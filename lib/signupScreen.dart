@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:toast/toast.dart';
 
@@ -12,9 +10,7 @@ class signupScreen extends StatefulWidget {
 }
 
 class _signupScreenState extends State<signupScreen> {
-  final _auth = FirebaseAuth.instance;
   final firebaseUser = FirebaseAuth.instance.currentUser;
-
   String email, password, repassword, mobileno, username;
   bool _secureTextPass = true;
   bool _secureTextRepass = true;
@@ -44,9 +40,10 @@ class _signupScreenState extends State<signupScreen> {
                       child: Text(
                         'Signup',
                         style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 40,
-                            color: kButtonColor),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 40,
+                          color: Color(0xFF4547ED),
+                        ),
                       ),
                     ),
                     Container(
@@ -311,7 +308,11 @@ class _signupScreenState extends State<signupScreen> {
                       child: FlatButton(
                         child: Text(
                           'Signup',
-                          style: kButtonTextStyle,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            color: Color(0xFFFFFFFF),
+                          ),
                         ),
                         onPressed: () async {
                           formkey.currentState.save();
@@ -354,7 +355,7 @@ class _signupScreenState extends State<signupScreen> {
                             return "Successful";
                           }
                         },
-                        color: kButtonColor,
+                        color: Color(0xFF4547ED),
                         height: 50,
                         minWidth: 300,
                       ),
@@ -368,7 +369,7 @@ class _signupScreenState extends State<signupScreen> {
                         Text(
                           'Don\'t have an account?',
                           style: TextStyle(
-                            color: kButtonColor,
+                            color: Color(0xFF4547ED),
                           ),
                         ),
                         SizedBox(
@@ -381,7 +382,7 @@ class _signupScreenState extends State<signupScreen> {
                           child: Text(
                             'Login',
                             style: TextStyle(
-                              color: kButtonColor,
+                              color: Color(0xFF4547ED),
                               fontWeight: FontWeight.w900,
                             ),
                           ),

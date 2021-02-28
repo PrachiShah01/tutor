@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:toast/toast.dart';
 
 class loginScreen extends StatefulWidget {
@@ -12,7 +10,6 @@ class loginScreen extends StatefulWidget {
 
 class _loginScreenState extends State<loginScreen> {
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
-
   String email, password, input;
   bool _secureTextPass = true;
 
@@ -31,14 +28,15 @@ class _loginScreenState extends State<loginScreen> {
                 ),
               ),
               SizedBox(
-                height: 30,
+                height: 100,
               ),
               Text(
                 'Login',
                 style: TextStyle(
-                    fontSize: 40,
-                    fontWeight: FontWeight.bold,
-                    color: kButtonColor),
+                  fontSize: 40,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF4547ED),
+                ),
               ),
               SizedBox(
                 height: 20,
@@ -148,9 +146,9 @@ class _loginScreenState extends State<loginScreen> {
                     Navigator.pushNamed(context, '/forgot');
                   },
                   child: Text(
-                    'Forgot Password',
+                    'Forgot Password?',
                     style: TextStyle(
-                      color: kButtonColor,
+                      color: Color(0xFF4547ED),
                     ),
                   ),
                 ),
@@ -163,7 +161,11 @@ class _loginScreenState extends State<loginScreen> {
                 child: FlatButton(
                   child: Text(
                     'Login',
-                    style: kButtonTextStyle,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      color: Color(0xFFFFFFFF),
+                    ),
                   ),
                   onPressed: () async {
                     final formstate = formkey.currentState;
@@ -174,7 +176,7 @@ class _loginScreenState extends State<loginScreen> {
                             .instance
                             .signInWithEmailAndPassword(
                                 email: email, password: password);
-                        Navigator.pushNamed(context, '/home');
+                        Navigator.pushNamed(context, '/menu');
                       } on FirebaseAuthException catch (e) {
                         if (e.code == 'user-not-found') {
                           Toast.show("No user found for that email", context,
@@ -189,7 +191,7 @@ class _loginScreenState extends State<loginScreen> {
                       }
                     }
                   },
-                  color: kButtonColor,
+                  color: Color(0xFF4547ED),
                   height: 50,
                   minWidth: 300,
                 ),
@@ -203,7 +205,7 @@ class _loginScreenState extends State<loginScreen> {
                   Text(
                     'Don\'t have an account?',
                     style: TextStyle(
-                      color: kButtonColor,
+                      color: Color(0xFF4547ED),
                     ),
                   ),
                   SizedBox(
@@ -216,11 +218,14 @@ class _loginScreenState extends State<loginScreen> {
                     child: Text(
                       'Signup',
                       style: TextStyle(
-                        color: kButtonColor,
+                        color: Color(0xFF4547ED),
                         fontWeight: FontWeight.w900,
                       ),
                     ),
-                  )
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
                 ],
               ),
             ],

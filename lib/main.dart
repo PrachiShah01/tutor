@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:tutor/Infopage.dart';
-import 'package:tutor/button.dart';
-import 'package:tutor/detailPage.dart';
+import 'package:tutor/homepage.dart';
+import 'package:tutor/tutorlist.dart';
 import 'package:tutor/loginScreen.dart';
 import 'package:tutor/signupScreen.dart';
-import 'package:tutor/welcome.dart';
-
-import 'homeScreen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:tutor/splashscreenPage.dart';
+import 'menuScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'forgotpass.dart';
-import 'detailPage.dart';
+import 'tutorlist.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,16 +21,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: new tutorApp(),
+      home: new splashScreen(),
       routes: {
-        '/home': (_) => homeScreen(),
+        '/menu': (_) => menuScreen(),
         '/login': (_) => loginScreen(),
         '/signup': (_) => signupScreen(),
         '/forgot': (_) => forgotPass(),
-        '/tutorapp': (_) => tutorApp(),
-        '/gateway': (_) => gatewayPage(),
-        '/detail': (_) => detailPage(),
-        //'/info': (_) => infoPage(),
+        '/home': (_) => homePage(),
+        '/list': (_) => tutorlistPage(),
+        '/menu': (_) => menuScreen(),
       },
     );
   }

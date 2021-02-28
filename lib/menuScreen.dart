@@ -2,12 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class homeScreen extends StatefulWidget {
+class menuScreen extends StatefulWidget {
   @override
-  _homeScreenState createState() => _homeScreenState();
+  _menuScreenState createState() => _menuScreenState();
 }
 
-class _homeScreenState extends State<homeScreen> {
+class _menuScreenState extends State<menuScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +29,7 @@ class _homeScreenState extends State<homeScreen> {
                           HomeButton(
                             label: 'Primary',
                             onpressed: () {
-                              Navigator.pushNamed(context, '/detail');
+                              Navigator.pushNamed(context, '/list');
                             },
                           ),
                           SizedBox(
@@ -38,7 +38,7 @@ class _homeScreenState extends State<homeScreen> {
                           HomeButton(
                             label: 'Secondary',
                             onpressed: () {
-                              Navigator.pushNamed(context, '/detail');
+                              Navigator.pushNamed(context, '/list');
                             },
                           ),
                         ],
@@ -51,7 +51,7 @@ class _homeScreenState extends State<homeScreen> {
                           HomeButton(
                             label: 'Higher',
                             onpressed: () {
-                              Navigator.pushNamed(context, '/detail');
+                              Navigator.pushNamed(context, '/list');
                             },
                           ),
                           SizedBox(
@@ -60,7 +60,7 @@ class _homeScreenState extends State<homeScreen> {
                           HomeButton(
                             label: 'Engineering',
                             onpressed: () {
-                              Navigator.pushNamed(context, '/detail');
+                              Navigator.pushNamed(context, '/list');
                             },
                           ),
                         ],
@@ -73,7 +73,7 @@ class _homeScreenState extends State<homeScreen> {
                           HomeButton(
                             label: 'Medical',
                             onpressed: () {
-                              Navigator.pushNamed(context, '/detail');
+                              Navigator.pushNamed(context, '/list');
                             },
                           ),
                           SizedBox(
@@ -82,7 +82,7 @@ class _homeScreenState extends State<homeScreen> {
                           HomeButton(
                             label: '',
                             onpressed: () {
-                              Navigator.pushNamed(context, '/detail');
+                              Navigator.pushNamed(context, '/list');
                             },
                           ),
                         ],

@@ -2,12 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class gatewayPage extends StatefulWidget {
+class homePage extends StatefulWidget {
   @override
-  _gatewayPageState createState() => _gatewayPageState();
+  _homePageState createState() => _homePageState();
 }
 
-class _gatewayPageState extends State<gatewayPage> {
+class _homePageState extends State<homePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,13 +35,14 @@ class _gatewayPageState extends State<gatewayPage> {
                       style: TextStyle(
                         fontWeight: FontWeight.w900,
                         color: Colors.white,
+                        fontSize: 20,
                       ),
                     ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(49),
                     ),
                     elevation: 15,
-                    color: Color(0xFFEB3633),
+                    color: Color(0xFFFFB200),
                   ),
                 ),
                 SizedBox(
@@ -54,7 +55,7 @@ class _gatewayPageState extends State<gatewayPage> {
                     onPressed: () {
                       FirebaseAuth auth = FirebaseAuth.instance;
                       if (auth.currentUser != null) {
-                        Navigator.pushNamed(context, '/home');
+                        Navigator.pushNamed(context, '/menu');
                       } else {
                         Navigator.pushNamed(context, '/login');
                       }
@@ -64,6 +65,7 @@ class _gatewayPageState extends State<gatewayPage> {
                       style: TextStyle(
                         fontWeight: FontWeight.w900,
                         color: Colors.white,
+                        fontSize: 20,
                       ),
                     ),
                     shape: RoundedRectangleBorder(
