@@ -3,12 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 
-class tutorlistPage extends StatefulWidget {
+class tutorlist extends StatefulWidget {
   @override
-  _tutorlistPageState createState() => _tutorlistPageState();
+  _tutorlistState createState() => _tutorlistState();
 }
 
-class _tutorlistPageState extends State<tutorlistPage> {
+class _tutorlistState extends State<tutorlist> {
   Query _ref;
 
   @override

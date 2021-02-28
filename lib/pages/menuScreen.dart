@@ -90,7 +90,7 @@ class _menuScreenState extends State<menuScreen> {
                       FlatButton(
                         onPressed: () async {
                           await FirebaseAuth.instance.signOut();
-                          Navigator.pushNamed(context, '/gateway');
+                          Navigator.pushNamed(context, '/login');
                         },
                         child: Text(
                           'Sign out',

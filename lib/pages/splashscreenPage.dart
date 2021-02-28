@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:splashscreen/splashscreen.dart';
-import 'package:tutor/homepage.dart';
+import 'file:///D:/Project/FlutterProject/tutor/lib/pages/homepage.dart';
 
 class splashScreen extends StatefulWidget {
   @override

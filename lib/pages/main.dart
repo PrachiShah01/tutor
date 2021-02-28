@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:tutor/homepage.dart';
-import 'package:tutor/tutorlist.dart';
-import 'package:tutor/loginScreen.dart';
-import 'package:tutor/signupScreen.dart';
-import 'package:tutor/splashscreenPage.dart';
+import 'file:///D:/Project/FlutterProject/tutor/lib/pages/homepage.dart';
+import 'file:///D:/Project/FlutterProject/tutor/lib/pages/loginScreen.dart';
+import 'file:///D:/Project/FlutterProject/tutor/lib/pages/signupScreen.dart';
+import 'file:///D:/Project/FlutterProject/tutor/lib/pages/splashscreenPage.dart';
 import 'menuScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'forgotpass.dart';
@@ -28,7 +27,7 @@ class MyApp extends StatelessWidget {
         '/signup': (_) => signupScreen(),
         '/forgot': (_) => forgotPass(),
         '/home': (_) => homePage(),
-        '/list': (_) => tutorlistPage(),
+        '/list': (_) => tutorlist(),
         '/menu': (_) => menuScreen(),
       },
     );
