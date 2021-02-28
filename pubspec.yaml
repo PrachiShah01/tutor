@@ -56,7 +56,6 @@ flutter:
   assets:
     - assets/loginpage.png
     - assets/mainscreenimage.png
-    - assets/tutorappicon.png
     - assets/leftbottom.png
     - assets/topright.png
     - assets/welcome.png
