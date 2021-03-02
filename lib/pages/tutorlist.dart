@@ -1,16 +1,18 @@
 import 'package:firebase_database/ui/firebase_animated_list.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:tutor/blocnavigation_bloc/navigation_bloc.dart';
+import 'menuScreen.dart';
 
-class tutorlist extends StatefulWidget {
+final menu = new menuScreen();
+
+class tutorlist extends StatefulWidget with NavigationStates {
   @override
   _tutorlistState createState() => _tutorlistState();
 }
 
 class _tutorlistState extends State<tutorlist> {
   Query _ref;
-
   @override
   void initState() {
     super.initState();
@@ -123,14 +125,25 @@ class _tutorlistState extends State<tutorlist> {
       home: Scaffold(
         body: SafeArea(
           child: Container(
-            height: double.infinity,
-            child: FirebaseAnimatedList(
-              query: _ref,
-              itemBuilder: (BuildContext context, DataSnapshot snapshot,
-                  Animation<double> animation, int index) {
-                Map biology = snapshot.value;
-                return _buildTutorItem(Biology: biology);
-              },
+            child: Column(
+              children: <Widget>[
+                Image(
+                  image: AssetImage('assets/head.png'),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Expanded(
+                  child: FirebaseAnimatedList(
+                    query: _ref,
+                    itemBuilder: (BuildContext context, DataSnapshot snapshot,
+                        Animation<double> animation, int index) {
+                      Map biology = snapshot.value;
+                      return _buildTutorItem(Biology: biology);
+                    },
+                  ),
+                ),
+              ],
             ),
           ),
         ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class forgotPass extends StatefulWidget {
+
   @override
   _forgotPassState createState() => _forgotPassState();
 }

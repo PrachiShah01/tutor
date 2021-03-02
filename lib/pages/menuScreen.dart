@@ -29,7 +29,7 @@ class _menuScreenState extends State<menuScreen> {
                           HomeButton(
                             label: 'Primary',
                             onpressed: () {
-                              Navigator.pushNamed(context, '/list');
+                              Navigator.pushNamed(context, '/sidebar');
                             },
                           ),
                           SizedBox(
@@ -38,7 +38,7 @@ class _menuScreenState extends State<menuScreen> {
                           HomeButton(
                             label: 'Secondary',
                             onpressed: () {
-                              Navigator.pushNamed(context, '/list');
+                              Navigator.pushNamed(context, '/sidebar');
                             },
                           ),
                         ],
@@ -49,9 +49,9 @@ class _menuScreenState extends State<menuScreen> {
                       Row(
                         children: <Widget>[
                           HomeButton(
-                            label: 'Higher',
+                            label: 'HigherSecondary',
                             onpressed: () {
-                              Navigator.pushNamed(context, '/list');
+                              Navigator.pushNamed(context, '/sidebar');
                             },
                           ),
                           SizedBox(
@@ -60,7 +60,7 @@ class _menuScreenState extends State<menuScreen> {
                           HomeButton(
                             label: 'Engineering',
                             onpressed: () {
-                              Navigator.pushNamed(context, '/list');
+                              Navigator.pushNamed(context, '/sidebar');
                             },
                           ),
                         ],
@@ -73,7 +73,7 @@ class _menuScreenState extends State<menuScreen> {
                           HomeButton(
                             label: 'Medical',
                             onpressed: () {
-                              Navigator.pushNamed(context, '/list');
+                              Navigator.pushNamed(context, '/sidebar');
                             },
                           ),
                           SizedBox(
@@ -82,7 +82,7 @@ class _menuScreenState extends State<menuScreen> {
                           HomeButton(
                             label: '',
                             onpressed: () {
-                              Navigator.pushNamed(context, '/list');
+                              Navigator.pushNamed(context, '/sidebar');
                             },
                           ),
                         ],

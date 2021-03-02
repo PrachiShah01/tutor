@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tutor/sidebar/sidebar.dart';
+import 'package:tutor/sidebar/sidebarlayout.dart';
 import 'file:///D:/Project/FlutterProject/tutor/lib/pages/homepage.dart';
 import 'file:///D:/Project/FlutterProject/tutor/lib/pages/loginScreen.dart';
 import 'file:///D:/Project/FlutterProject/tutor/lib/pages/signupScreen.dart';
@@ -29,6 +31,7 @@ class MyApp extends StatelessWidget {
         '/home': (_) => homePage(),
         '/list': (_) => tutorlist(),
         '/menu': (_) => menuScreen(),
+        '/sidebar': (_) => sidebarLayout(),
       },
     );
   }

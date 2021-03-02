@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:tutor/blocnavigation_bloc/navigation_bloc.dart';
 
-class homePage extends StatefulWidget {
+class homePage extends StatefulWidget with NavigationStates {
   @override
   _homePageState createState() => _homePageState();
 }

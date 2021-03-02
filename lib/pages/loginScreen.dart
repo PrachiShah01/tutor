@@ -2,13 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:toast/toast.dart';
+import 'menuScreen.dart';
 
 class loginScreen extends StatefulWidget {
+
   @override
   _loginScreenState createState() => _loginScreenState();
 }
 
 class _loginScreenState extends State<loginScreen> {
+
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
   String email, password, input;
   bool _secureTextPass = true;
@@ -176,7 +179,10 @@ class _loginScreenState extends State<loginScreen> {
                             .instance
                             .signInWithEmailAndPassword(
                                 email: email, password: password);
-                        Navigator.pushNamed(context, '/menu');
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => menuScreen()),
+                        );
                       } on FirebaseAuthException catch (e) {
                         if (e.code == 'user-not-found') {
                           Toast.show("No user found for that email", context,
