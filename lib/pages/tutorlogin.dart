@@ -2,16 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:toast/toast.dart';
-import 'menuScreen.dart';
+import 'package:tutor/pages/tutorinfo.dart';
+import 'package:tutor/pages/tutorsignup.dart';
 
-class loginScreen extends StatefulWidget {
-
+class tutorlogin extends StatefulWidget {
   @override
-  _loginScreenState createState() => _loginScreenState();
+  _tutorloginState createState() => _tutorloginState();
 }
 
-class _loginScreenState extends State<loginScreen> {
-
+class _tutorloginState extends State<tutorlogin> {
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
   String email, password, input;
   bool _secureTextPass = true;
@@ -31,18 +30,18 @@ class _loginScreenState extends State<loginScreen> {
                 ),
               ),
               SizedBox(
-                height: 100,
+                height: 70,
               ),
               Text(
-                'Login',
+                'Login as a TEACHER',
                 style: TextStyle(
-                  fontSize: 40,
-                  fontWeight: FontWeight.bold,
+                  fontSize: 30,
+                  fontWeight: FontWeight.w500,
                   color: Color(0xFF4547ED),
                 ),
               ),
               SizedBox(
-                height: 20,
+                height: 50,
               ),
               Container(
                 padding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
@@ -146,7 +145,12 @@ class _loginScreenState extends State<loginScreen> {
                 margin: EdgeInsets.only(left: 150),
                 child: GestureDetector(
                   onTap: () async {
-                    Navigator.pushNamed(context, '/forgot');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => tutorlogin(),
+                      ),
+                    );
                   },
                   child: Text(
                     'Forgot Password?',
@@ -181,7 +185,9 @@ class _loginScreenState extends State<loginScreen> {
                                 email: email, password: password);
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => menuScreen()),
+                          MaterialPageRoute(
+                            builder: (context) => tutorinfo(),
+                          ),
                         );
                       } on FirebaseAuthException catch (e) {
                         if (e.code == 'user-not-found') {
@@ -219,7 +225,12 @@ class _loginScreenState extends State<loginScreen> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, '/signup');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => tutorsignup(),
+                        ),
+                      );
                     },
                     child: Text(
                       'Signup',

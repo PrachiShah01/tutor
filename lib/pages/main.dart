@@ -1,20 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:tutor/sidebar/sidebar.dart';
-import 'package:tutor/sidebar/sidebarlayout.dart';
-import 'file:///D:/Project/FlutterProject/tutor/lib/pages/homepage.dart';
-import 'file:///D:/Project/FlutterProject/tutor/lib/pages/loginScreen.dart';
-import 'file:///D:/Project/FlutterProject/tutor/lib/pages/signupScreen.dart';
-import 'file:///D:/Project/FlutterProject/tutor/lib/pages/splashscreenPage.dart';
-import 'menuScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'forgotpass.dart';
-import 'tutorlist.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tutor/pages/homescreen.dart';
+import 'package:tutor/pages/splashscreen.dart';
+import 'package:tutor/pages/tutorinfo.dart';
+import 'package:tutor/pages/tutorlogin.dart';
+import 'package:tutor/pages/tutorsignup.dart';
+import 'welcomepage.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'studentlogin.dart';
+import 'studentsignup.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences preferences = await SharedPreferences.getInstance();
+  var email = preferences.get('email');
   await Firebase.initializeApp();
   runApp(MyApp());
 }
+
+DatabaseReference userRef =
+    FirebaseDatabase.instance.reference().child("users");
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -22,17 +28,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: new splashScreen(),
-      routes: {
-        '/menu': (_) => menuScreen(),
-        '/login': (_) => loginScreen(),
-        '/signup': (_) => signupScreen(),
-        '/forgot': (_) => forgotPass(),
-        '/home': (_) => homePage(),
-        '/list': (_) => tutorlist(),
-        '/menu': (_) => menuScreen(),
-        '/sidebar': (_) => sidebarLayout(),
-      },
+      theme: ThemeData(
+        primaryColor: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      home: splashScreen(),
     );
   }
 }

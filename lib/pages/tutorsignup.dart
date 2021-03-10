@@ -1,24 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:toast/toast.dart';
+import 'package:tutor/pages/tutorlogin.dart';
 
-class signupScreen extends StatefulWidget {
-
+class tutorsignup extends StatefulWidget {
   @override
-  _signupScreenState createState() => _signupScreenState();
+  _tutorsignupState createState() => _tutorsignupState();
 }
 
-class _signupScreenState extends State<signupScreen> {
+class _tutorsignupState extends State<tutorsignup> {
   final firebaseUser = FirebaseAuth.instance.currentUser;
   String email, password, repassword, mobileno, username;
   bool _secureTextPass = true;
   bool _secureTextRepass = true;
   TextEditingController _password = TextEditingController();
   TextEditingController _confirmpassword = TextEditingController();
-  CollectionReference users = FirebaseFirestore.instance.collection('users');
+  CollectionReference collectionReference =
+      FirebaseFirestore.instance.collection('tutor');
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
   @override
@@ -40,7 +40,7 @@ class _signupScreenState extends State<signupScreen> {
                     Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: Text(
-                        'Signup',
+                        'Signup as a TUTOR',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 40,
@@ -329,18 +329,28 @@ class _signupScreenState extends State<signupScreen> {
                               if (!user.emailVerified) {
                                 await user.sendEmailVerification();
                               }
-                              users
-                                  .add({
+                              if (user != null) {
+                                collectionReference.doc(email).set(
+                                  {
                                     'username': username,
                                     'email': email,
-                                    'password': password.hashCode,
-                                    'mobileno': mobileno
-                                  })
-                                  .then((value) => print("User Added"))
-                                  .catchError((error) =>
-                                      print("Failed to add user: $error"));
+                                    'password': password,
+                                    'mobileno': mobileno,
+                                    'academyname': null,
+                                    'address': null,
+                                    'city': null,
+                                    'teachingexperience': null,
+                                    'language': null
+                                  },
+                                );
+                              }
 
-                              Navigator.pushNamed(context, '/login');
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => tutorlogin(),
+                                ),
+                              );
                             } on FirebaseAuthException catch (e) {
                               if (e.code == 'weak-password') {
                                 Toast.show("Password is too weak", context,
@@ -379,7 +389,12 @@ class _signupScreenState extends State<signupScreen> {
                         ),
                         GestureDetector(
                           onTap: () {
-                            Navigator.pushNamed(context, '/login');
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => tutorlogin(),
+                              ),
+                            );
                           },
                           child: Text(
                             'Login',
