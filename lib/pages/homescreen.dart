@@ -2,15 +2,23 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class homeScreen extends StatelessWidget {
+class homeScreen extends StatefulWidget {
+  @override
+  _homeScreenState createState() => _homeScreenState();
+}
+
+class _homeScreenState extends State<homeScreen> {
   String subject;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: StreamBuilder(
-          stream: FirebaseFirestore.instance.collection('tutor').snapshots(),
-          // .where('subject', isEqualTo: "Maths")
+          stream: FirebaseFirestore.instance
+              .collection('tutor')
+              .where('language', isEqualTo: subject)
+              .snapshots(),
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (!snapshot.hasData) return CircularProgressIndicator();
@@ -34,7 +42,9 @@ class homeScreen extends StatelessWidget {
                                   TextStyle(color: Colors.white, fontSize: 20),
                             ),
                             onPressed: () {
-                              subject = "physics";
+                              setState(() {
+                                subject = "Physics";
+                              });
                             },
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30),
@@ -53,7 +63,11 @@ class homeScreen extends StatelessWidget {
                               style:
                                   TextStyle(color: Colors.white, fontSize: 20),
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              setState(() {
+                                subject = "Chemistry";
+                              });
+                            },
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30),
                             ),
