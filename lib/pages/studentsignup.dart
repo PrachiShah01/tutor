@@ -18,7 +18,7 @@ class _studentsignupState extends State<studentsignup> {
   TextEditingController _confirmpassword = TextEditingController();
 
   final FirebaseAuth auth = FirebaseAuth.instance;
-  final User user = FirebaseAuth.instance.currentUser;
+  final User studentuser = FirebaseAuth.instance.currentUser;
   CollectionReference collectionReference =
       FirebaseFirestore.instance.collection('student');
 
@@ -327,12 +327,11 @@ class _studentsignupState extends State<studentsignup> {
                                   .instance
                                   .createUserWithEmailAndPassword(
                                       email: email, password: password);
-                              User user = FirebaseAuth.instance.currentUser;
 
-                              if (!user.emailVerified) {
-                                await user.sendEmailVerification();
+                              if (!studentuser.emailVerified) {
+                                await studentuser.sendEmailVerification();
                               }
-                              if (user != null) {
+                              if (studentuser != null) {
                                 collectionReference.doc(email).set(
                                   {
                                     'username': username,

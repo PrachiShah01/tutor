@@ -13,7 +13,7 @@ class tutorinfo extends StatefulWidget {
 }
 
 class _tutorinfoState extends State<tutorinfo> {
-  final User user = FirebaseAuth.instance.currentUser;
+  final User tutoruser = FirebaseAuth.instance.currentUser;
   CollectionReference collectionReference =
       FirebaseFirestore.instance.collection('tutor');
   List subjectList = ['Physics', 'Mathematics', 'Biology', 'Chemistry'];
@@ -81,7 +81,7 @@ class _tutorinfoState extends State<tutorinfo> {
                 ),
               ),
               SizedBox(height: 20),
-              Text(user.email),
+              Text(tutoruser.email),
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Column(
@@ -298,9 +298,9 @@ class _tutorinfoState extends State<tutorinfo> {
                         ),
                       ),
                       onPressed: () {
-                        if (user != null) {
+                        if (tutoruser != null) {
                           print(academyname);
-                          collectionReference.doc(user.email).update(
+                          collectionReference.doc(tutoruser.email).update(
                             {
                               'name': name,
                               'academyname': academyname,

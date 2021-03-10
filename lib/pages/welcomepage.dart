@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tutor/pages/homescreen.dart';
 import 'tutorinfo.dart';
 import 'studentlogin.dart';
 import 'tutorlogin.dart';
@@ -15,6 +16,7 @@ class welcomePage extends StatefulWidget {
 
 class _welcomePageState extends State<welcomePage> {
   final User user = FirebaseAuth.instance.currentUser;
+  final User studentuser = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {
@@ -62,12 +64,21 @@ class _welcomePageState extends State<welcomePage> {
                   title: "I AM STUDENT",
                   color: Color(0xFF1215EE),
                   onpressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => studentlogin(),
-                      ),
-                    );
+                    if (studentuser != null) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => homeScreen(),
+                        ),
+                      );
+                    } else if (studentuser == null) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => studentlogin(),
+                        ),
+                      );
+                    }
                   },
                 ),
               ],

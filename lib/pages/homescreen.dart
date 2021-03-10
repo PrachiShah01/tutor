@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:tutor/pages/welcomepage.dart';
 
 class homeScreen extends StatefulWidget {
   @override
@@ -8,11 +10,41 @@ class homeScreen extends StatefulWidget {
 }
 
 class _homeScreenState extends State<homeScreen> {
+  final User studentuser = FirebaseAuth.instance.currentUser;
   String subject;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(backgroundColor: Color(0xFF2829A6), actions: <Widget>[
+        IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => welcomePage(),
+                ),
+              );
+            }),
+        SizedBox(width: 260),
+        IconButton(
+          icon: Icon(Icons.logout),
+          onPressed: () async {
+            await FirebaseAuth.instance.signOut();
+            // final SharedPreferences sharedPreference =
+            //     await SharedPreferences.getInstance();
+            // finalEmail = null;
+            //print(finalEmail);
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => welcomePage(),
+              ),
+            );
+          },
+        ),
+      ]),
       body: SafeArea(
         child: StreamBuilder(
           stream: FirebaseFirestore.instance
@@ -171,15 +203,15 @@ class _homeScreenState extends State<homeScreen> {
                                     style: TextStyle(fontSize: 15),
                                   ),
                                   Text(
+                                    document['academyname'],
+                                    style: TextStyle(fontSize: 15),
+                                  ),
+                                  Text(
                                     document['name'],
                                     style: TextStyle(fontSize: 15),
                                   ),
                                   Text(
                                     document['mobileno'],
-                                    style: TextStyle(fontSize: 15),
-                                  ),
-                                  Text(
-                                    document['language'],
                                     style: TextStyle(fontSize: 15),
                                   ),
                                 ],

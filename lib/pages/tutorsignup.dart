@@ -11,7 +11,7 @@ class tutorsignup extends StatefulWidget {
 }
 
 class _tutorsignupState extends State<tutorsignup> {
-  final firebaseUser = FirebaseAuth.instance.currentUser;
+  final User tutoruser = FirebaseAuth.instance.currentUser;
   String email, password, repassword, mobileno, username;
   bool _secureTextPass = true;
   bool _secureTextRepass = true;
@@ -326,10 +326,10 @@ class _tutorsignupState extends State<tutorsignup> {
                                       email: email, password: password);
                               User user = FirebaseAuth.instance.currentUser;
 
-                              if (!user.emailVerified) {
+                              if (!tutoruser.emailVerified) {
                                 await user.sendEmailVerification();
                               }
-                              if (user != null) {
+                              if (tutoruser != null) {
                                 collectionReference.doc(email).set(
                                   {
                                     'username': username,
