@@ -1,9 +1,16 @@
+import 'dart:io';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart';
+import 'package:tutor/pages/tutorhome.dart';
 import 'package:tutor/pages/welcomepage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
+import 'bio.dart';
 
 class tutorinfo extends StatefulWidget {
   static const String idScreen = "tutorinfo";
@@ -18,41 +25,49 @@ class _tutorinfoState extends State<tutorinfo> {
       FirebaseFirestore.instance.collection('tutor');
   List subjectList = ['Physics', 'Mathematics', 'Biology', 'Chemistry'];
   String valueChoose;
-  String name, academyname, address, city, language;
-  int experience;
+  String name, academyname, address, city, language, experience;
+  File _image;
+  final picker = ImagePicker();
+  var pickedFile;
+  String url;
 
   @override
   Widget build(BuildContext context) {
+    Future getImage(BuildContext context) async {
+      pickedFile = await picker.getImage(source: ImageSource.gallery);
+
+      setState(() {
+        _image = File(pickedFile.path);
+      });
+    }
+
+    Future uploadPic(BuildContext context) async {
+      String fileName = basename(_image.path);
+
+      firebase_storage.Reference firebaseStorageRef = firebase_storage
+          .FirebaseStorage.instance
+          .ref()
+          .child('uploads/$fileName');
+      firebase_storage.UploadTask uploadTask =
+          firebaseStorageRef.putFile(_image);
+      firebaseStorageRef.getDownloadURL().then((fileUrl) => url = fileUrl);
+    }
+
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color(0xFF2829A6),
         actions: <Widget>[
-          IconButton(
-              icon: Icon(Icons.arrow_back),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => welcomePage(),
-                  ),
-                );
-              }),
+          // IconButton(
+          //     icon: Icon(Icons.arrow_back),
+          //     onPressed: () {
+          //       Navigator.push(
+          //         context,
+          //         MaterialPageRoute(
+          //           builder: (context) => tutorhome(),
+          //         ),
+          //       );
+          //     }),
           SizedBox(width: 260),
-          IconButton(
-            icon: Icon(Icons.logout),
-            onPressed: () async {
-              await FirebaseAuth.instance.signOut();
-              // final SharedPreferences sharedPreference =
-              //     await SharedPreferences.getInstance();
-              // finalEmail = null;
-              //print(finalEmail);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => welcomePage(),
-                ),
-              );
-            },
-          ),
         ],
       ),
       body: SafeArea(
@@ -64,9 +79,9 @@ class _tutorinfoState extends State<tutorinfo> {
                 height: 70,
                 child: Center(
                   child: Text(
-                    'Tell us something more about you',
+                    'EDIT YOUR PROFILE',
                     style: TextStyle(
-                      color: Colors.blue,
+                      color: Color(0xFF2829A6),
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
                     ),
@@ -76,9 +91,24 @@ class _tutorinfoState extends State<tutorinfo> {
               SizedBox(height: 20),
               Container(
                 child: CircleAvatar(
-                  radius: 70,
+                  radius: 100,
                   backgroundColor: Colors.black12,
+                  child: ClipOval(
+                    child: SizedBox(
+                      width: 180,
+                      height: 180,
+                      child: _image == null
+                          ? Text('No image selected.')
+                          : Image.file(_image),
+                    ),
+                  ),
                 ),
+              ),
+              IconButton(
+                icon: Icon(Icons.camera_alt),
+                onPressed: () {
+                  getImage(context);
+                },
               ),
               SizedBox(height: 20),
               Text(tutoruser.email),
@@ -183,6 +213,33 @@ class _tutorinfoState extends State<tutorinfo> {
                     SizedBox(height: 15),
                     TextField(
                       textAlign: TextAlign.center,
+                      decoration: InputDecoration(
+                        focusColor: Color(0xFF000000),
+                        floatingLabelBehavior: FloatingLabelBehavior.always,
+                        hintText: "Teaching experience in year",
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(25.0),
+                          borderSide:
+                              BorderSide(color: Colors.blue, width: 1.5),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(25.0),
+                          borderSide: BorderSide(
+                            width: 1.5,
+                          ),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(25.0),
+                          borderSide: BorderSide(
+                            width: 1.5,
+                          ),
+                        ),
+                      ),
+                      onChanged: (value) => experience = value,
+                    ),
+                    SizedBox(height: 15),
+                    TextField(
+                      textAlign: TextAlign.center,
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
                         focusColor: Color(0xFF000000),
@@ -210,36 +267,6 @@ class _tutorinfoState extends State<tutorinfo> {
                         fontSize: 15,
                       ),
                       onChanged: (value) => city = value,
-                    ),
-                    SizedBox(height: 15),
-                    TextField(
-                      textAlign: TextAlign.center,
-                      decoration: InputDecoration(
-                        focusColor: Color(0xFF000000),
-                        floatingLabelBehavior: FloatingLabelBehavior.always,
-                        hintText: "Teaching experience in year",
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(25.0),
-                          borderSide:
-                              BorderSide(color: Colors.blue, width: 1.5),
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(25.0),
-                          borderSide: BorderSide(
-                            width: 1.5,
-                          ),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(25.0),
-                          borderSide: BorderSide(
-                            width: 1.5,
-                          ),
-                        ),
-                      ),
-                      keyboardType: TextInputType.number,
-                      onChanged: (value) {
-                        return experience.toString();
-                      },
                     ),
                     SizedBox(
                       height: 15,
@@ -285,7 +312,7 @@ class _tutorinfoState extends State<tutorinfo> {
                     RaisedButton(
                       padding:
                           EdgeInsets.symmetric(horizontal: 50, vertical: 20.0),
-                      color: Colors.blueAccent,
+                      color: Color(0xFF2829A6),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
@@ -298,16 +325,19 @@ class _tutorinfoState extends State<tutorinfo> {
                         ),
                       ),
                       onPressed: () {
+                        print(experience);
                         if (tutoruser != null) {
                           print(academyname);
+                          uploadPic(context);
                           collectionReference.doc(tutoruser.email).update(
                             {
                               'name': name,
                               'academyname': academyname,
                               'address': address,
                               'city': city,
-                              'teachingexperience': experience,
+                              'experience': experience,
                               'language': valueChoose,
+                              'photourl': url,
                             },
                           );
                         }
@@ -315,6 +345,128 @@ class _tutorinfoState extends State<tutorinfo> {
                     ),
                   ],
                 ),
+              ),
+            ],
+          ),
+        ),
+      ),
+      drawer: Container(
+        color: Color(0xFF2829A6),
+        width: 255.0,
+        child: Drawer(
+          child: ListView(
+            children: [
+              Container(
+                height: 165.0,
+                width: 200,
+                child: DrawerHeader(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                  ),
+                  child: Row(
+                    children: [
+                      StreamBuilder(
+                          stream: FirebaseFirestore.instance
+                              .collection('tutor')
+                              .doc(tutoruser.email)
+                              .snapshots(),
+                          builder: (context, snapshot) {
+                            if (!snapshot.hasData) {
+                              return Text("Loading");
+                            }
+                            var document = snapshot.data;
+                            return CircleAvatar(
+                              radius: 50,
+                              backgroundColor: Colors.grey,
+                              child: ClipOval(
+                                child: SizedBox(
+                                  width: 100,
+                                  height: 100,
+                                  child: (document['photourl'] == null)
+                                      ? Image.asset('assets/nextbutton.png')
+                                      : Image.network(document['photourl']),
+                                ),
+                              ),
+                            );
+                          }),
+                      SizedBox(
+                        width: 16.0,
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Profile Name',
+                            style: TextStyle(
+                              fontSize: 16.0,
+                              fontFamily: "JosefinSans",
+                            ),
+                          ),
+                          SizedBox(
+                            height: 6.0,
+                          ),
+                          Text('Visit Profile'),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              Divider(
+                height: 1.0,
+                color: Colors.grey,
+                thickness: 1.0,
+              ),
+              SizedBox(height: 12.0),
+              ListTile(
+                leading: Icon(Icons.home),
+                title: Text('Home', style: TextStyle(fontSize: 15)),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => tutorhome(),
+                    ),
+                  );
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.edit),
+                title: Text('Edit', style: TextStyle(fontSize: 15)),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => tutorinfo(),
+                    ),
+                  );
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.person),
+                title: Text('Visit Profile', style: TextStyle(fontSize: 15)),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => tutorbio(),
+                    ),
+                  );
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.logout),
+                title: Text('Signout', style: TextStyle(fontSize: 15)),
+                onTap: () async {
+                  await FirebaseAuth.instance.signOut();
+
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => welcomePage(),
+                    ),
+                  );
+                },
               ),
             ],
           ),

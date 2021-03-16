@@ -3,10 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:toast/toast.dart';
+import 'package:tutor/pages/courseScreen.dart';
 import 'package:tutor/pages/homescreen.dart';
 import 'package:tutor/pages/studentsignup.dart';
-import 'package:tutor/pages/tutorinfo.dart';
-import 'package:tutor/pages/tutorsignup.dart';
 
 class studentlogin extends StatefulWidget {
   @override
@@ -186,6 +185,24 @@ class _studentloginState extends State<studentlogin> {
                             .instance
                             .signInWithEmailAndPassword(
                                 email: email, password: password);
+                        var a = await FirebaseFirestore.instance
+                            .collection('student')
+                            .doc(email)
+                            .get();
+                        if (a.exists) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => courseScreen(),
+                            ),
+                          );
+                        } else {
+                          Toast.show(
+                              "User is not registered with this email ID",
+                              context,
+                              duration: Toast.LENGTH_SHORT,
+                              gravity: Toast.CENTER);
+                        }
                       } on FirebaseAuthException catch (e) {
                         if (e.code == 'user-not-found') {
                           Toast.show("No user found for that email", context,
@@ -197,23 +214,6 @@ class _studentloginState extends State<studentlogin> {
                               duration: Toast.LENGTH_SHORT,
                               gravity: Toast.CENTER);
                         }
-                      }
-                      var a = await FirebaseFirestore.instance
-                          .collection('student')
-                          .doc(email)
-                          .get();
-                      if (a.exists) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => homeScreen(),
-                          ),
-                        );
-                      } else {
-                        Toast.show("User is not registered with this email ID",
-                            context,
-                            duration: Toast.LENGTH_SHORT,
-                            gravity: Toast.CENTER);
                       }
                     }
                   },

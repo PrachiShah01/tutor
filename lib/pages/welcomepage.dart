@@ -1,8 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:toast/toast.dart';
+import 'package:tutor/pages/courseScreen.dart';
 import 'package:tutor/pages/homescreen.dart';
+import 'package:tutor/pages/tutorhome.dart';
+import 'bio.dart';
 import 'tutorinfo.dart';
 import 'studentlogin.dart';
 import 'tutorlogin.dart';
@@ -40,13 +45,30 @@ class _welcomePageState extends State<welcomePage> {
                   color: Colors.amber,
                   onpressed: () async {
                     //getValidationData();
+
                     if (user != null) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => tutorinfo(),
-                        ),
-                      );
+                      var a = await FirebaseFirestore.instance
+                          .collection('tutor')
+                          .doc(user.email)
+                          .get();
+                      if (a.exists) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => tutorhome(),
+                          ),
+                        );
+                      } else {
+                        Toast.show("User is not registered as tutor", context,
+                            duration: Toast.LENGTH_SHORT,
+                            gravity: Toast.CENTER);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => tutorlogin(),
+                          ),
+                        );
+                      }
                     } else if (user == null) {
                       Navigator.push(
                         context,
@@ -63,14 +85,24 @@ class _welcomePageState extends State<welcomePage> {
                 buttonstyle(
                   title: "I AM STUDENT",
                   color: Color(0xFF1215EE),
-                  onpressed: () {
-                    if (studentuser != null) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => homeScreen(),
-                        ),
-                      );
+                  onpressed: () async {
+                    if (user != null) {
+                      var a = await FirebaseFirestore.instance
+                          .collection('student')
+                          .doc(user.email)
+                          .get();
+                      if (a.exists) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => courseScreen(),
+                          ),
+                        );
+                      } else {
+                        Toast.show("User is not registered as student", context,
+                            duration: Toast.LENGTH_SHORT,
+                            gravity: Toast.CENTER);
+                      }
                     } else if (studentuser == null) {
                       Navigator.push(
                         context,
@@ -79,6 +111,12 @@ class _welcomePageState extends State<welcomePage> {
                         ),
                       );
                     }
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) => courseScreen(),
+                    //   ),
+                    // );
                   },
                 ),
               ],

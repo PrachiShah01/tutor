@@ -1,9 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:toast/toast.dart';
+import 'package:tutor/pages/tutorhome.dart';
 import 'package:tutor/pages/tutorinfo.dart';
 import 'package:tutor/pages/tutorsignup.dart';
+
+import 'bio.dart';
 
 class tutorlogin extends StatefulWidget {
   @override
@@ -183,12 +187,24 @@ class _tutorloginState extends State<tutorlogin> {
                             .instance
                             .signInWithEmailAndPassword(
                                 email: email, password: password);
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => tutorinfo(),
-                          ),
-                        );
+                        var a = await FirebaseFirestore.instance
+                            .collection('tutor')
+                            .doc(email)
+                            .get();
+                        if (a.exists) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => tutorhome(),
+                            ),
+                          );
+                        } else {
+                          Toast.show(
+                              "No user is registered as tutor with this email",
+                              context,
+                              duration: Toast.LENGTH_SHORT,
+                              gravity: Toast.CENTER);
+                        }
                       } on FirebaseAuthException catch (e) {
                         if (e.code == 'user-not-found') {
                           Toast.show("No user found for that email", context,
