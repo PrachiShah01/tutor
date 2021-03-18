@@ -8,6 +8,7 @@
     <application
         android:requestLegacyExternalStorage="true"
         android:name="io.flutter.app.FlutterApplication"
+
         android:label="tutor"
         android:icon="@mipmap/ic_launcher">
         <activity

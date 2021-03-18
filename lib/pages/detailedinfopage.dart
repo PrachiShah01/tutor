@@ -33,7 +33,7 @@ class detailInfoPage extends StatelessWidget {
                   width: 190,
                   height: 190,
                   child: (tutor['photourl'] == null)
-                      ? Image.asset('assets/nextbutton.png')
+                      ? Image.asset('assets/teacher.png')
                       : Image.network(
                           tutor['photourl'],
                         ),
@@ -67,10 +67,10 @@ class detailInfoPage extends StatelessWidget {
                             ),
                             SizedBox(width: 10),
                             Text(
-                              tutor['name'],
+                              tutor['username'],
                               style: TextStyle(
                                 fontSize: 18,
-                                fontWeight: FontWeight.w300,
+                                fontWeight: FontWeight.w400,
                               ),
                             ),
                           ],
@@ -86,11 +86,13 @@ class detailInfoPage extends StatelessWidget {
                               ),
                             ),
                             SizedBox(width: 10),
-                            Text(
-                              tutor['academyname'],
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w300,
+                            Flexible(
+                              child: Text(
+                                (tutor['academyname'].toString() == null)
+                                    ? " "
+                                    : tutor['academyname'].toString(),
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w400, fontSize: 18),
                               ),
                             ),
                           ],
@@ -111,7 +113,7 @@ class detailInfoPage extends StatelessWidget {
                                 tutor['email'],
                                 style: TextStyle(
                                   fontSize: 18,
-                                  fontWeight: FontWeight.w300,
+                                  fontWeight: FontWeight.w400,
                                 ),
                               ),
                             ],
@@ -129,11 +131,11 @@ class detailInfoPage extends StatelessWidget {
                             ),
                             SizedBox(width: 10),
                             Text(
-                              tutor['language'],
+                              (tutor['language'].toString() == null)
+                                  ? " "
+                                  : tutor['language'].toString(),
                               style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w300,
-                              ),
+                                  fontWeight: FontWeight.w400, fontSize: 18),
                             ),
                           ],
                         ),
@@ -149,18 +151,18 @@ class detailInfoPage extends StatelessWidget {
                             ),
                             SizedBox(width: 10),
                             Text(
-                              tutor['experience'].toString(),
+                              (tutor['experience'].toString() == null)
+                                  ? " "
+                                  : tutor['experience'].toString(),
                               style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w300,
-                              ),
+                                  fontWeight: FontWeight.w400, fontSize: 18),
                             ),
                             SizedBox(width: 5),
                             Text(
                               'Years',
                               style: TextStyle(
                                 fontSize: 18,
-                                fontWeight: FontWeight.w300,
+                                fontWeight: FontWeight.w400,
                               ),
                             )
                           ],
@@ -177,11 +179,11 @@ class detailInfoPage extends StatelessWidget {
                             ),
                             SizedBox(width: 10),
                             Text(
-                              tutor['address'],
+                              (tutor['address'].toString() == null)
+                                  ? " "
+                                  : tutor['address'].toString(),
                               style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w300,
-                              ),
+                                  fontWeight: FontWeight.w400, fontSize: 18),
                             ),
                           ],
                         ),
@@ -197,11 +199,11 @@ class detailInfoPage extends StatelessWidget {
                             ),
                             SizedBox(width: 10),
                             Text(
-                              tutor['city'],
+                              (tutor['city'].toString() == null)
+                                  ? " "
+                                  : tutor['city'].toString(),
                               style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w300,
-                              ),
+                                  fontWeight: FontWeight.w400, fontSize: 18),
                             ),
                           ],
                         ),
@@ -216,13 +218,13 @@ class detailInfoPage extends StatelessWidget {
                               ),
                             ),
                             SizedBox(width: 10),
-                            Text(
-                              tutor['mobileno'],
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w300,
-                              ),
-                            ),
+                            // Text(
+                            //   (tutor['mobileno'].toString() == null)
+                            //       ? " "
+                            //       : tutor['mobileno'].toString(),
+                            //   style: TextStyle(
+                            //       fontWeight: FontWeight.w400, fontSize: 18),
+                            // ),
                           ],
                         ),
                       ],

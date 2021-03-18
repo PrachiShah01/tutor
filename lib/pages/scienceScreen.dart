@@ -6,24 +6,26 @@ import 'package:tutor/pages/courseScreen.dart';
 import 'package:tutor/pages/detailedinfopage.dart';
 import 'package:tutor/pages/welcomepage.dart';
 
-class homeScreen extends StatefulWidget {
+class scienceScreen extends StatefulWidget {
   @override
-  _homeScreenState createState() => _homeScreenState();
+  _scienceScreenState createState() => _scienceScreenState();
 }
 
-class _homeScreenState extends State<homeScreen> {
+class _scienceScreenState extends State<scienceScreen> {
   final User studentuser = FirebaseAuth.instance.currentUser;
   String subject, filter;
 
   Stream<QuerySnapshot> st =
-      FirebaseFirestore.instance.collection('tutor').snapshots();
-  List subjectList = ['Experience', 'Fees'];
-  String valueChoose;
+      FirebaseFirestore.instance.collection('Science').snapshots();
+  List filterlist = ['Experience', 'Fees'];
+  List citylist = ['navsari', 'surat'];
+  String filterChoose;
+  String cityChoose;
   bool isSelected = true;
 
   Future getPosts() async {
     QuerySnapshot qn =
-        await FirebaseFirestore.instance.collection('tutor').get();
+        await FirebaseFirestore.instance.collection('Science').get();
     return qn.docs;
   }
 
@@ -60,7 +62,7 @@ class _homeScreenState extends State<homeScreen> {
                             subject = "Physics";
 
                             st = FirebaseFirestore.instance
-                                .collection('tutor')
+                                .collection('Science')
                                 .where('language', isEqualTo: subject)
                                 .snapshots();
                           });
@@ -86,7 +88,7 @@ class _homeScreenState extends State<homeScreen> {
                             subject = "Chemistry";
 
                             st = FirebaseFirestore.instance
-                                .collection('tutor')
+                                .collection('Science')
                                 .where('language', isEqualTo: subject)
                                 .snapshots();
                           });
@@ -112,7 +114,7 @@ class _homeScreenState extends State<homeScreen> {
                             subject = "Mathematics";
 
                             st = FirebaseFirestore.instance
-                                .collection('tutor')
+                                .collection('Science')
                                 .where('language', isEqualTo: subject)
                                 .snapshots();
                           });
@@ -138,7 +140,7 @@ class _homeScreenState extends State<homeScreen> {
                             subject = "Biology";
 
                             st = FirebaseFirestore.instance
-                                .collection('tutor')
+                                .collection('Science')
                                 .where('language', isEqualTo: subject)
                                 .snapshots();
                           });
@@ -160,58 +162,81 @@ class _homeScreenState extends State<homeScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Container(
-                  width: 250,
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 10.0, left: 10.0),
-                    child: Container(
-                      padding: EdgeInsets.only(left: 10),
-                      // decoration: BoxDecoration(
-                      //   color: Colors.white,
-                      //   borderRadius: BorderRadius.circular(49),
-                      //   border: Border.all(
-                      //       color: Colors.black,
-                      //       style: BorderStyle.solid,
-                      //       width: 1),
-                      // ),
-                      width: 50,
-                      child: DropdownButton(
-                        isExpanded: true,
-                        underline: SizedBox(),
-                        hint: Center(
-                          child: Text(
-                            'Select Filter',
+                Expanded(
+                  child: Container(
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 10.0, left: 10.0),
+                      child: Container(
+                        padding: EdgeInsets.only(left: 10),
+                        width: 50,
+                        child: DropdownButton(
+                          isExpanded: true,
+                          underline: SizedBox(),
+                          hint: Center(
+                            child: Text(
+                              'Select Filter',
+                            ),
                           ),
-                        ),
-                        value: valueChoose,
-                        items: subjectList
-                            .map<DropdownMenuItem<String>>((valueItem) {
-                          return DropdownMenuItem(
-                            child: Text(valueItem),
-                            value: valueItem,
-                          );
-                        }).toList(),
-                        onChanged: (newValue) {
-                          setState(() {
-                            valueChoose = newValue;
+                          value: filterChoose,
+                          items: filterlist
+                              .map<DropdownMenuItem<String>>((valueItem) {
+                            return DropdownMenuItem(
+                              child: Text(valueItem),
+                              value: valueItem,
+                            );
+                          }).toList(),
+                          onChanged: (newValue) {
+                            setState(() {
+                              filterChoose = newValue;
 
-                            st = FirebaseFirestore.instance
-                                .collection('tutor')
-                                .orderBy('experience', descending: true)
-                                .snapshots();
-                          });
-                        },
+                              st = FirebaseFirestore.instance
+                                  .collection('Science')
+                                  .orderBy('experience', descending: true)
+                                  .snapshots();
+                            });
+                          },
+                        ),
                       ),
                     ),
                   ),
                 ),
-                Container(
-                  child: Icon(
-                    Icons.filter_alt,
-                    color: Color(0xFF2829A6),
-                    size: 30,
+                Expanded(
+                  child: Container(
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 10.0, left: 10.0),
+                      child: Container(
+                        padding: EdgeInsets.only(left: 10),
+                        width: 50,
+                        child: DropdownButton(
+                          isExpanded: true,
+                          underline: SizedBox(),
+                          hint: Center(
+                            child: Text(
+                              'Select City',
+                            ),
+                          ),
+                          value: cityChoose,
+                          items: citylist
+                              .map<DropdownMenuItem<String>>((valueItem) {
+                            return DropdownMenuItem(
+                              child: Text(valueItem),
+                              value: valueItem,
+                            );
+                          }).toList(),
+                          onChanged: (newValue) {
+                            setState(() {
+                              cityChoose = newValue;
+                              st = FirebaseFirestore.instance
+                                  .collection('Science')
+                                  .where('city', isEqualTo: cityChoose)
+                                  .snapshots();
+                            });
+                          },
+                        ),
+                      ),
+                    ),
                   ),
-                )
+                ),
               ],
             ),
             const Divider(
@@ -283,14 +308,6 @@ class _homeScreenState extends State<homeScreen> {
                                     children: <Widget>[
                                       Row(
                                         children: [
-                                          // Text(
-                                          //   'Academy Name:',
-                                          //   style: TextStyle(
-                                          //       fontWeight: FontWeight.w600),
-                                          // ),
-                                          // SizedBox(
-                                          //   width: 10,
-                                          // ),
                                           Flexible(
                                             child: Text(
                                               (document['academyname'] == null)
@@ -416,9 +433,7 @@ class _homeScreenState extends State<homeScreen> {
                                 child: SizedBox(
                                   width: 100,
                                   height: 100,
-                                  // child: (document['photourl'] == null)
-                                  //     ? Image.asset('assets/nextbutton.png')
-                                  //     : Image.network(document['photourl']),
+                                  child: Image.asset('assets/student.png'),
                                 ),
                               ),
                             );
@@ -439,7 +454,6 @@ class _homeScreenState extends State<homeScreen> {
                           SizedBox(
                             height: 6.0,
                           ),
-                          Text('Visit Profile'),
                         ],
                       )
                     ],
@@ -464,18 +478,18 @@ class _homeScreenState extends State<homeScreen> {
                   );
                 },
               ),
-              ListTile(
-                leading: Icon(Icons.person),
-                title: Text('Tutor list', style: TextStyle(fontSize: 15)),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => homeScreen(),
-                    ),
-                  );
-                },
-              ),
+              // ListTile(
+              //   leading: Icon(Icons.person),
+              //   title: Text('Tutor list', style: TextStyle(fontSize: 15)),
+              //   onTap: () {
+              //     Navigator.push(
+              //       context,
+              //       MaterialPageRoute(
+              //         builder: (context) => courseScreen(),
+              //       ),
+              //     );
+              //   },
+              // ),
               ListTile(
                 leading: Icon(Icons.logout),
                 title: Text('Signout', style: TextStyle(fontSize: 15)),

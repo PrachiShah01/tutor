@@ -20,6 +20,8 @@ class _tutorsignupState extends State<tutorsignup> {
   CollectionReference collectionReference =
       FirebaseFirestore.instance.collection('tutor');
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
+  String pattern = r'^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}';
+  String mobpattern = r'^[6-9]\d{9}';
 
   @override
   Widget build(BuildContext context) {
@@ -37,14 +39,15 @@ class _tutorsignupState extends State<tutorsignup> {
                     Container(
                       child: Image.asset('assets/head.png'),
                     ),
+                    SizedBox(height: 10),
                     Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: Text(
-                        'Signup as a TUTOR',
+                        'TEACHER Signup',
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 40,
-                          color: Color(0xFF4547ED),
+                          fontSize: 30,
+                          fontWeight: FontWeight.w500,
+                          color: Color(0xFF2829A6),
                         ),
                       ),
                     ),
@@ -89,7 +92,7 @@ class _tutorsignupState extends State<tutorsignup> {
                           return null;
                         },
                         onChanged: (value) {
-                          username = value;
+                          username = value.toUpperCase();
                         },
                       ),
                     ),
@@ -187,11 +190,17 @@ class _tutorsignupState extends State<tutorsignup> {
                             ),
                           ),
                         ),
-                        validator: (value) {
+                        validator: (String value) {
                           if (value.isEmpty) {
                             return 'Please Enter Password';
+                          } else {
+                            RegExp regExp = new RegExp(pattern);
+                            if (regExp.hasMatch(value)) {
+                              return null;
+                            } else {
+                              return "Alphabets, numbers and special characters";
+                            }
                           }
-                          return null;
                         },
                         onChanged: (value) {
                           password = value;
@@ -291,11 +300,17 @@ class _tutorsignupState extends State<tutorsignup> {
                             ),
                           ),
                         ),
-                        validator: (value) {
+                        validator: (String value) {
                           if (value.isEmpty) {
-                            return 'Re-enter password';
+                            return 'Please Enter Password';
+                          } else {
+                            RegExp regExp = new RegExp(mobpattern);
+                            if (regExp.hasMatch(value)) {
+                              return null;
+                            } else {
+                              return "Enter valid mobile number";
+                            }
                           }
-                          return null;
                         },
                         onChanged: (String value) {
                           mobileno = value;
@@ -326,9 +341,6 @@ class _tutorsignupState extends State<tutorsignup> {
                                       email: email, password: password);
                               User user = FirebaseAuth.instance.currentUser;
 
-                              if (!tutoruser.emailVerified) {
-                                await user.sendEmailVerification();
-                              }
                               if (tutoruser != null) {
                                 collectionReference.doc(email).set(
                                   {
@@ -339,8 +351,9 @@ class _tutorsignupState extends State<tutorsignup> {
                                     'academyname': null,
                                     'address': null,
                                     'city': null,
-                                    'teachingexperience': null,
-                                    'language': null
+                                    'experience': null,
+                                    'language': null,
+                                    'photourl': null,
                                   },
                                 );
                               }
@@ -367,7 +380,7 @@ class _tutorsignupState extends State<tutorsignup> {
                             return "Successful";
                           }
                         },
-                        color: Color(0xFF4547ED),
+                        color: Color(0xFF2829A6),
                         height: 50,
                         minWidth: 300,
                       ),
@@ -378,12 +391,6 @@ class _tutorsignupState extends State<tutorsignup> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Text(
-                          'Don\'t have an account?',
-                          style: TextStyle(
-                            color: Color(0xFF4547ED),
-                          ),
-                        ),
                         SizedBox(
                           width: 5,
                         ),
@@ -397,10 +404,10 @@ class _tutorsignupState extends State<tutorsignup> {
                             );
                           },
                           child: Text(
-                            'Login',
+                            'Already have an account? Login',
                             style: TextStyle(
-                              color: Color(0xFF4547ED),
-                              fontWeight: FontWeight.w900,
+                              color: Color(0xFF2829A6),
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
                         ),

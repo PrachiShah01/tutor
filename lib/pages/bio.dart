@@ -76,7 +76,7 @@ class _tutorbioState extends State<tutorbio> {
                                   width: 190,
                                   height: 190,
                                   child: (document['photourl'] == null)
-                                      ? Image.asset('assets/nextbutton.png')
+                                      ? Image.asset('assets/teacher.png')
                                       : Image.network(document['photourl']),
                                 ),
                               ),
@@ -203,16 +203,19 @@ class _tutorbioState extends State<tutorbio> {
                                         SizedBox(
                                           width: 5,
                                         ),
-                                        // Flexible(
-                                        //   child: Text(
-                                        //     (document['experience'] == null)
-                                        //         ? " "
-                                        //         : document['experience'],
-                                        //     style: TextStyle(
-                                        //         fontWeight: FontWeight.w400,
-                                        //         fontSize: 18),
-                                        //   ),
-                                        // )
+                                        Flexible(
+                                          child: Text(
+                                            (document['experience']
+                                                        .toString() ==
+                                                    null)
+                                                ? " "
+                                                : document['experience']
+                                                    .toString(),
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 18),
+                                          ),
+                                        )
                                       ],
                                     ),
                                     SizedBox(
@@ -315,7 +318,7 @@ class _tutorbioState extends State<tutorbio> {
                                   width: 100,
                                   height: 100,
                                   child: (document['photourl'] == null)
-                                      ? Image.asset('assets/nextbutton.png')
+                                      ? Image.asset('assets/teacher.png')
                                       : Image.network(document['photourl']),
                                 ),
                               ),

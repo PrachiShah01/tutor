@@ -3,6 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tutor/pages/homescreen.dart';
 import 'package:tutor/pages/welcomepage.dart';
+import 'scienceScreen.dart';
+import 'commerceScreen.dart';
+import 'artsScreen.dart';
 
 class courseScreen extends StatelessWidget {
   final User user = FirebaseAuth.instance.currentUser;
@@ -11,35 +14,10 @@ class courseScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xFF2829A6),
-        actions: <Widget>[
-          // IconButton(
-          //     icon: Icon(Icons.arrow_back),
-          //     onPressed: () {
-          //       Navigator.push(
-          //         context,
-          //         MaterialPageRoute(
-          //           builder: (context) => welcomePage(),
-          //         ),
-          //       );
-          //     }),
-          SizedBox(width: 260),
-          // IconButton(
-          //   icon: Icon(Icons.logout),
-          //   onPressed: () async {
-          //     await FirebaseAuth.instance.signOut();
-          //     Navigator.push(
-          //       context,
-          //       MaterialPageRoute(
-          //         builder: (context) => welcomePage(),
-          //       ),
-          //     );
-          //   },
-          // ),
-        ],
       ),
       body: SafeArea(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Text(
               'Courses',
@@ -56,14 +34,28 @@ class courseScreen extends StatelessWidget {
               children: <Widget>[
                 courseButton(
                   image: Image.asset('assets/engineericon.png'),
-                  text: 'Engineering',
-                  onpressed: () {},
+                  text: 'Arts',
+                  onpressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => artsScreen(),
+                      ),
+                    );
+                  },
                 ),
                 SizedBox(width: 5),
                 courseButton(
                   image: Image.asset('assets/commerce.png'),
                   text: 'Commerce',
-                  onpressed: () {},
+                  onpressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => commerceScreen(),
+                      ),
+                    );
+                  },
                 ),
                 SizedBox(width: 5),
                 courseButton(
@@ -73,7 +65,7 @@ class courseScreen extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => homeScreen(),
+                        builder: (context) => scienceScreen(),
                       ),
                     );
                   },
@@ -83,75 +75,75 @@ class courseScreen extends StatelessWidget {
             SizedBox(
               height: 20,
             ),
-            Row(
-              children: <Widget>[
-                courseButton(
-                  image: Image.asset('assets/engineericon.png'),
-                  text: 'Engineering',
-                  onpressed: () {},
-                ),
-                SizedBox(width: 5),
-                courseButton(
-                  image: Image.asset('assets/commerce.png'),
-                  text: 'Commerce',
-                  onpressed: () {},
-                ),
-                SizedBox(width: 5),
-                courseButton(
-                  image: Image.asset('assets/mathsscience.png'),
-                  text: 'Science',
-                  onpressed: () {},
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Row(
-              children: <Widget>[
-                courseButton(
-                  image: Image.asset('assets/engineericon.png'),
-                  text: 'Engineering',
-                  onpressed: () {},
-                ),
-                SizedBox(width: 5),
-                courseButton(
-                  image: Image.asset('assets/commerce.png'),
-                  text: 'Commerce',
-                  onpressed: () {},
-                ),
-                SizedBox(width: 5),
-                courseButton(
-                  image: Image.asset('assets/mathsscience.png'),
-                  text: 'Science',
-                  onpressed: () {},
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Row(
-              children: <Widget>[
-                courseButton(
-                  image: Image.asset('assets/engineericon.png'),
-                  text: 'Engineering',
-                  onpressed: () {},
-                ),
-                SizedBox(width: 5),
-                courseButton(
-                  image: Image.asset('assets/commerce.png'),
-                  text: 'Management & Commerce',
-                  onpressed: () {},
-                ),
-                SizedBox(width: 5),
-                courseButton(
-                  image: Image.asset('assets/mathsscience.png'),
-                  text: 'Mathematics & Science',
-                  onpressed: () {},
-                ),
-              ],
-            ),
+            // Row(
+            //   children: <Widget>[
+            //     courseButton(
+            //       image: Image.asset('assets/engineericon.png'),
+            //       text: 'Engineering',
+            //       onpressed: () {},
+            //     ),
+            //     SizedBox(width: 5),
+            //     courseButton(
+            //       image: Image.asset('assets/commerce.png'),
+            //       text: 'Commerce',
+            //       onpressed: () {},
+            //     ),
+            //     SizedBox(width: 5),
+            //     courseButton(
+            //       image: Image.asset('assets/mathsscience.png'),
+            //       text: 'Science',
+            //       onpressed: () {},
+            //     ),
+            //   ],
+            // ),
+            // SizedBox(
+            //   height: 20,
+            // ),
+            // Row(
+            //   children: <Widget>[
+            //     courseButton(
+            //       image: Image.asset('assets/engineericon.png'),
+            //       text: 'Engineering',
+            //       onpressed: () {},
+            //     ),
+            //     SizedBox(width: 5),
+            //     courseButton(
+            //       image: Image.asset('assets/commerce.png'),
+            //       text: 'Commerce',
+            //       onpressed: () {},
+            //     ),
+            //     SizedBox(width: 5),
+            //     courseButton(
+            //       image: Image.asset('assets/mathsscience.png'),
+            //       text: 'Science',
+            //       onpressed: () {},
+            //     ),
+            //   ],
+            // ),
+            // SizedBox(
+            //   height: 20,
+            // ),
+            // Row(
+            //   children: <Widget>[
+            //     courseButton(
+            //       image: Image.asset('assets/engineericon.png'),
+            //       text: 'Engineering',
+            //       onpressed: () {},
+            //     ),
+            //     SizedBox(width: 5),
+            //     courseButton(
+            //       image: Image.asset('assets/commerce.png'),
+            //       text: 'Management & Commerce',
+            //       onpressed: () {},
+            //     ),
+            //     SizedBox(width: 5),
+            //     courseButton(
+            //       image: Image.asset('assets/mathsscience.png'),
+            //       text: 'Mathematics & Science',
+            //       onpressed: () {},
+            //     ),
+            //   ],
+            // ),
           ],
         ),
       ),
@@ -187,9 +179,7 @@ class courseScreen extends StatelessWidget {
                                 child: SizedBox(
                                   width: 100,
                                   height: 100,
-                                  // child: (document['photourl'] == null)
-                                  //     ? Image.asset('assets/nextbutton.png')
-                                  //     : Image.network(document['photourl']),
+                                  child: Image.asset('assets/student.png'),
                                 ),
                               ),
                             );
@@ -210,7 +200,6 @@ class courseScreen extends StatelessWidget {
                           SizedBox(
                             height: 6.0,
                           ),
-                          Text('Visit Profile'),
                         ],
                       )
                     ],
@@ -235,18 +224,18 @@ class courseScreen extends StatelessWidget {
                   );
                 },
               ),
-              ListTile(
-                leading: Icon(Icons.person),
-                title: Text('Tutor list', style: TextStyle(fontSize: 15)),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => homeScreen(),
-                    ),
-                  );
-                },
-              ),
+              // ListTile(
+              //   leading: Icon(Icons.person),
+              //   title: Text('Tutor list', style: TextStyle(fontSize: 15)),
+              //   onTap: () {
+              //     Navigator.push(
+              //       context,
+              //       MaterialPageRoute(
+              //         builder: (context) => homeScreen(),
+              //       ),
+              //     );
+              //   },
+              // ),
               ListTile(
                 leading: Icon(Icons.logout),
                 title: Text('Signout', style: TextStyle(fontSize: 15)),

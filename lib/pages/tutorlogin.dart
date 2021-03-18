@@ -6,6 +6,7 @@ import 'package:toast/toast.dart';
 import 'package:tutor/pages/tutorhome.dart';
 import 'package:tutor/pages/tutorinfo.dart';
 import 'package:tutor/pages/tutorsignup.dart';
+import 'forgot.dart';
 
 import 'bio.dart';
 
@@ -37,11 +38,11 @@ class _tutorloginState extends State<tutorlogin> {
                 height: 70,
               ),
               Text(
-                'Login as a TEACHER',
+                'TEACHER Login',
                 style: TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.w500,
-                  color: Color(0xFF4547ED),
+                  color: Color(0xFF2829A6),
                 ),
               ),
               SizedBox(
@@ -152,14 +153,14 @@ class _tutorloginState extends State<tutorlogin> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => tutorlogin(),
+                        builder: (context) => forgotpass(),
                       ),
                     );
                   },
                   child: Text(
                     'Forgot Password?',
                     style: TextStyle(
-                      color: Color(0xFF4547ED),
+                      color: Color(0xFF2829A6),
                     ),
                   ),
                 ),
@@ -219,7 +220,7 @@ class _tutorloginState extends State<tutorlogin> {
                       }
                     }
                   },
-                  color: Color(0xFF4547ED),
+                  color: Color(0xFF2829A6),
                   height: 50,
                   minWidth: 300,
                 ),
@@ -230,12 +231,12 @@ class _tutorloginState extends State<tutorlogin> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text(
-                    'Don\'t have an account?',
-                    style: TextStyle(
-                      color: Color(0xFF4547ED),
-                    ),
-                  ),
+                  // Text(
+                  //   'Don\'t have an account?',
+                  //   style: TextStyle(
+                  //     color: Color(0xFF2829A6),
+                  //   ),
+                  // ),
                   SizedBox(
                     width: 5,
                   ),
@@ -249,10 +250,10 @@ class _tutorloginState extends State<tutorlogin> {
                       );
                     },
                     child: Text(
-                      'Signup',
+                      'Don\'t have an account? Signup',
                       style: TextStyle(
-                        color: Color(0xFF4547ED),
-                        fontWeight: FontWeight.w900,
+                        color: Color(0xFF2829A6),
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                   ),

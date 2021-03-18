@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:toast/toast.dart';
 import 'package:tutor/pages/courseScreen.dart';
+import 'package:tutor/pages/forgot.dart';
 import 'package:tutor/pages/homescreen.dart';
 import 'package:tutor/pages/studentsignup.dart';
 
@@ -35,11 +38,11 @@ class _studentloginState extends State<studentlogin> {
                 height: 70,
               ),
               Text(
-                'Login as a STUDENT',
+                'STUDENT login',
                 style: TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.w500,
-                  color: Color(0xFF4547ED),
+                  color: Color(0xFF2829A6),
                 ),
               ),
               SizedBox(
@@ -150,14 +153,14 @@ class _studentloginState extends State<studentlogin> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => studentlogin(),
+                        builder: (context) => forgotpass(),
                       ),
                     );
                   },
                   child: Text(
                     'Forgot Password?',
                     style: TextStyle(
-                      color: Color(0xFF4547ED),
+                      color: Color(0xFF2829A6),
                     ),
                   ),
                 ),
@@ -217,7 +220,7 @@ class _studentloginState extends State<studentlogin> {
                       }
                     }
                   },
-                  color: Color(0xFF4547ED),
+                  color: Color(0xFF2829A6),
                   height: 50,
                   minWidth: 300,
                 ),
@@ -228,12 +231,6 @@ class _studentloginState extends State<studentlogin> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text(
-                    'Don\'t have an account?',
-                    style: TextStyle(
-                      color: Color(0xFF4547ED),
-                    ),
-                  ),
                   SizedBox(
                     width: 5,
                   ),
@@ -247,10 +244,10 @@ class _studentloginState extends State<studentlogin> {
                       );
                     },
                     child: Text(
-                      'Signup',
+                      'Don\'t have an account? Signup',
                       style: TextStyle(
-                        color: Color(0xFF4547ED),
-                        fontWeight: FontWeight.w900,
+                        color: Color(0xFF2829A6),
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                   ),

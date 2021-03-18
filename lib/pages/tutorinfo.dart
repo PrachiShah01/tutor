@@ -23,13 +23,45 @@ class _tutorinfoState extends State<tutorinfo> {
   final User tutoruser = FirebaseAuth.instance.currentUser;
   CollectionReference collectionReference =
       FirebaseFirestore.instance.collection('tutor');
-  List subjectList = ['Physics', 'Mathematics', 'Biology', 'Chemistry'];
+  List subjectList = [
+    'Physics',
+    'Mathematics',
+    'Biology',
+    'Chemistry',
+    'English',
+    'Gujarati',
+    'Economics',
+    'Statstics',
+    'Computer',
+    'History',
+    'Geography',
+    'Political Science',
+    'Psychology',
+    'Sociology',
+    'Hindi',
+    'Sanskrit'
+  ];
   String valueChoose;
   String name, academyname, address, city, language, experience;
   File _image;
   final picker = ImagePicker();
   var pickedFile;
   String url;
+  int selectRadio;
+  String course;
+  bool value = false;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    selectRadio = 0;
+  }
+
+  setSelectedRadio(int val) {
+    setState(() {
+      selectRadio = val;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,19 +88,6 @@ class _tutorinfoState extends State<tutorinfo> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xFF2829A6),
-        actions: <Widget>[
-          // IconButton(
-          //     icon: Icon(Icons.arrow_back),
-          //     onPressed: () {
-          //       Navigator.push(
-          //         context,
-          //         MaterialPageRoute(
-          //           builder: (context) => tutorhome(),
-          //         ),
-          //       );
-          //     }),
-          SizedBox(width: 260),
-        ],
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -111,9 +130,8 @@ class _tutorinfoState extends State<tutorinfo> {
                 },
               ),
               SizedBox(height: 20),
-              Text(tutoruser.email),
               Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: Column(
                   children: <Widget>[
                     TextField(
@@ -125,18 +143,18 @@ class _tutorinfoState extends State<tutorinfo> {
                         floatingLabelBehavior: FloatingLabelBehavior.always,
                         hintText: "Enter Name",
                         focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(25.0),
+                          borderRadius: BorderRadius.circular(10.0),
                           borderSide:
                               BorderSide(color: Colors.blue, width: 1.5),
                         ),
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(25.0),
+                          borderRadius: BorderRadius.circular(10.0),
                           borderSide: BorderSide(
                             width: 1.5,
                           ),
                         ),
                         enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(25.0),
+                          borderRadius: BorderRadius.circular(10.0),
                           borderSide: BorderSide(
                             width: 1.5,
                           ),
@@ -145,7 +163,7 @@ class _tutorinfoState extends State<tutorinfo> {
                       style: TextStyle(
                         fontSize: 15,
                       ),
-                      onChanged: (value) => name = value,
+                      onChanged: (value) => name = value.toUpperCase(),
                     ),
                     SizedBox(height: 15),
                     TextField(
@@ -156,18 +174,18 @@ class _tutorinfoState extends State<tutorinfo> {
                         floatingLabelBehavior: FloatingLabelBehavior.always,
                         hintText: "Enter academy name",
                         focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(25.0),
+                          borderRadius: BorderRadius.circular(10.0),
                           borderSide:
                               BorderSide(color: Colors.blue, width: 1.5),
                         ),
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(25.0),
+                          borderRadius: BorderRadius.circular(10.0),
                           borderSide: BorderSide(
                             width: 1.5,
                           ),
                         ),
                         enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(25.0),
+                          borderRadius: BorderRadius.circular(10.0),
                           borderSide: BorderSide(
                             width: 1.5,
                           ),
@@ -176,7 +194,7 @@ class _tutorinfoState extends State<tutorinfo> {
                       style: TextStyle(
                         fontSize: 15,
                       ),
-                      onChanged: (value) => academyname = value,
+                      onChanged: (value) => academyname = value.toUpperCase(),
                     ),
                     SizedBox(height: 15),
                     TextField(
@@ -188,18 +206,18 @@ class _tutorinfoState extends State<tutorinfo> {
                         floatingLabelBehavior: FloatingLabelBehavior.always,
                         hintText: "Enter Address",
                         focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(25.0),
+                          borderRadius: BorderRadius.circular(10.0),
                           borderSide:
                               BorderSide(color: Colors.blue, width: 1.5),
                         ),
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(25.0),
+                          borderRadius: BorderRadius.circular(10.0),
                           borderSide: BorderSide(
                             width: 1.5,
                           ),
                         ),
                         enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(25.0),
+                          borderRadius: BorderRadius.circular(10.0),
                           borderSide: BorderSide(
                             width: 1.5,
                           ),
@@ -218,18 +236,18 @@ class _tutorinfoState extends State<tutorinfo> {
                         floatingLabelBehavior: FloatingLabelBehavior.always,
                         hintText: "Teaching experience in year",
                         focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(25.0),
+                          borderRadius: BorderRadius.circular(10.0),
                           borderSide:
                               BorderSide(color: Colors.blue, width: 1.5),
                         ),
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(25.0),
+                          borderRadius: BorderRadius.circular(10.0),
                           borderSide: BorderSide(
                             width: 1.5,
                           ),
                         ),
                         enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(25.0),
+                          borderRadius: BorderRadius.circular(10.0),
                           borderSide: BorderSide(
                             width: 1.5,
                           ),
@@ -246,18 +264,18 @@ class _tutorinfoState extends State<tutorinfo> {
                         floatingLabelBehavior: FloatingLabelBehavior.always,
                         hintText: "Enter City",
                         focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(25.0),
+                          borderRadius: BorderRadius.circular(10.0),
                           borderSide:
                               BorderSide(color: Colors.blue, width: 1.5),
                         ),
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(25.0),
+                          borderRadius: BorderRadius.circular(10.0),
                           borderSide: BorderSide(
                             width: 1.5,
                           ),
                         ),
                         enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(25.0),
+                          borderRadius: BorderRadius.circular(10.0),
                           borderSide: BorderSide(
                             width: 1.5,
                           ),
@@ -271,12 +289,66 @@ class _tutorinfoState extends State<tutorinfo> {
                     SizedBox(
                       height: 15,
                     ),
+                    Row(
+                      children: [
+                        Radio(
+                          value: 1,
+                          groupValue: selectRadio,
+                          activeColor: Colors.blueAccent,
+                          onChanged: (val) {
+                            setSelectedRadio(val);
+                            course = "Science";
+                          },
+                        ),
+                        Text(
+                          'Science',
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Radio(
+                          value: 2,
+                          groupValue: selectRadio,
+                          activeColor: Colors.blueAccent,
+                          onChanged: (val) {
+                            setSelectedRadio(val);
+                            course = "Commerce";
+                          },
+                        ),
+                        Text(
+                          'Commerce',
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Radio(
+                          value: 3,
+                          groupValue: selectRadio,
+                          activeColor: Colors.blueAccent,
+                          onChanged: (val) {
+                            setSelectedRadio(val);
+                            course = "Arts";
+                          },
+                        ),
+                        Text(
+                          'Arts',
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
                     Container(
                       padding:
                           EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(25),
+                        borderRadius: BorderRadius.circular(10),
                         border: Border.all(
                             color: Colors.black,
                             style: BorderStyle.solid,
@@ -288,7 +360,7 @@ class _tutorinfoState extends State<tutorinfo> {
                         underline: SizedBox(),
                         hint: Center(
                           child: Text(
-                            'Select Language',
+                            'Select Subject',
                           ),
                         ),
                         value: valueChoose,
@@ -329,13 +401,63 @@ class _tutorinfoState extends State<tutorinfo> {
                         if (tutoruser != null) {
                           print(academyname);
                           uploadPic(context);
+                          if (course == "Science") {
+                            print(course);
+                            FirebaseFirestore.instance
+                                .collection(course)
+                                .doc(tutoruser.email)
+                                .set(
+                              {
+                                'username': name,
+                                'academyname': academyname,
+                                'address': address,
+                                'city': city,
+                                'experience': int.parse(experience),
+                                'language': valueChoose,
+                                'photourl': url,
+                                'email': tutoruser.email
+                              },
+                            );
+                          } else if (course == "Commerce") {
+                            print(course);
+                            FirebaseFirestore.instance
+                                .collection(course)
+                                .doc(tutoruser.email)
+                                .set(
+                              {
+                                'username': name,
+                                'academyname': academyname,
+                                'address': address,
+                                'city': city,
+                                'experience': int.parse(experience),
+                                'language': valueChoose,
+                                'photourl': url,
+                              },
+                            );
+                          } else if (course == "Arts") {
+                            print(course);
+                            FirebaseFirestore.instance
+                                .collection(course)
+                                .doc(tutoruser.email)
+                                .set(
+                              {
+                                'username': name,
+                                'academyname': academyname,
+                                'address': address,
+                                'city': city,
+                                'experience': int.parse(experience),
+                                'language': valueChoose,
+                                'photourl': url,
+                              },
+                            );
+                          }
                           collectionReference.doc(tutoruser.email).update(
                             {
-                              'name': name,
+                              'username': name,
                               'academyname': academyname,
                               'address': address,
                               'city': city,
-                              'experience': experience,
+                              'experience': int.parse(experience),
                               'language': valueChoose,
                               'photourl': url,
                             },
@@ -383,7 +505,7 @@ class _tutorinfoState extends State<tutorinfo> {
                                   width: 100,
                                   height: 100,
                                   child: (document['photourl'] == null)
-                                      ? Image.asset('assets/nextbutton.png')
+                                      ? Image.asset('assets/teacher.png')
                                       : Image.network(document['photourl']),
                                 ),
                               ),

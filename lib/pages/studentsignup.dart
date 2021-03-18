@@ -23,6 +23,7 @@ class _studentsignupState extends State<studentsignup> {
       FirebaseFirestore.instance.collection('student');
 
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
+  String pattern = r'^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}';
 
   @override
   Widget build(BuildContext context) {
@@ -35,19 +36,22 @@ class _studentsignupState extends State<studentsignup> {
               key: formkey,
               child: SingleChildScrollView(
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     Container(
                       child: Image.asset('assets/head.png'),
                     ),
+                    SizedBox(
+                      height: 10,
+                    ),
                     Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: Text(
-                        'Signup a STUDENT',
+                        'STUDENT Signup',
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 40,
-                          color: Color(0xFF4547ED),
+                          fontWeight: FontWeight.w500,
+                          fontSize: 30,
+                          color: Color(0xFF2829A6),
                         ),
                       ),
                     ),
@@ -92,7 +96,7 @@ class _studentsignupState extends State<studentsignup> {
                           return null;
                         },
                         onChanged: (value) {
-                          username = value;
+                          username = value.toUpperCase();
                         },
                       ),
                     ),
@@ -190,11 +194,17 @@ class _studentsignupState extends State<studentsignup> {
                             ),
                           ),
                         ),
-                        validator: (value) {
+                        validator: (String value) {
                           if (value.isEmpty) {
                             return 'Please Enter Password';
+                          } else {
+                            RegExp regExp = new RegExp(pattern);
+                            if (regExp.hasMatch(value)) {
+                              return null;
+                            } else {
+                              return "Password must have character, numeric and special character.";
+                            }
                           }
-                          return null;
                         },
                         onChanged: (value) {
                           password = value;
@@ -364,7 +374,7 @@ class _studentsignupState extends State<studentsignup> {
                             return "Successful";
                           }
                         },
-                        color: Color(0xFF4547ED),
+                        color: Color(0xFF2829A6),
                         height: 50,
                         minWidth: 300,
                       ),
@@ -375,12 +385,6 @@ class _studentsignupState extends State<studentsignup> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Text(
-                          'Don\'t have an account?',
-                          style: TextStyle(
-                            color: Color(0xFF4547ED),
-                          ),
-                        ),
                         SizedBox(
                           width: 5,
                         ),
@@ -394,10 +398,10 @@ class _studentsignupState extends State<studentsignup> {
                             );
                           },
                           child: Text(
-                            'Login',
+                            'Already have an account? Login',
                             style: TextStyle(
-                              color: Color(0xFF4547ED),
-                              fontWeight: FontWeight.w900,
+                              color: Color(0xFF2829A6),
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
                         ),
