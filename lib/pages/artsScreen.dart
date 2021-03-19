@@ -332,7 +332,7 @@ class _artsScreenState extends State<artsScreen> {
                             setState(() {
                               cityChoose = newValue;
                               st = FirebaseFirestore.instance
-                                  .collection('Science')
+                                  .collection('Arts')
                                   .where('city', isEqualTo: cityChoose)
                                   .snapshots();
                             });

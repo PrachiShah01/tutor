@@ -254,7 +254,7 @@ class _commerceScreenState extends State<commerceScreen> {
                             setState(() {
                               cityChoose = newValue;
                               st = FirebaseFirestore.instance
-                                  .collection('Science')
+                                  .collection('Commerce')
                                   .where('city', isEqualTo: cityChoose)
                                   .snapshots();
                             });
