@@ -171,6 +171,34 @@ class detailInfoPage extends StatelessWidget {
                         Row(
                           children: [
                             Text(
+                              'Fees:  ',
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            SizedBox(width: 10),
+                            Text(
+                              (tutor['fee'].toString() == null)
+                                  ? " "
+                                  : tutor['fee'].toString(),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w400, fontSize: 18),
+                            ),
+                            SizedBox(width: 5),
+                            Text(
+                              'per Year',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            )
+                          ],
+                        ),
+                        SizedBox(height: 10),
+                        Row(
+                          children: [
+                            Text(
                               'Address:  ',
                               style: TextStyle(
                                 fontSize: 20,
@@ -218,13 +246,13 @@ class detailInfoPage extends StatelessWidget {
                               ),
                             ),
                             SizedBox(width: 10),
-                            // Text(
-                            //   (tutor['mobileno'].toString() == null)
-                            //       ? " "
-                            //       : tutor['mobileno'].toString(),
-                            //   style: TextStyle(
-                            //       fontWeight: FontWeight.w400, fontSize: 18),
-                            // ),
+                            Text(
+                              (tutor['mobileno'].toString() == null)
+                                  ? " "
+                                  : tutor['mobileno'].toString(),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w400, fontSize: 18),
+                            ),
                           ],
                         ),
                       ],

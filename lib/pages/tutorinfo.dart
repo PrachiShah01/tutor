@@ -31,7 +31,7 @@ class _tutorinfoState extends State<tutorinfo> {
     'English',
     'Gujarati',
     'Economics',
-    'Statstics',
+    'Statastics',
     'Computer',
     'History',
     'Geography',
@@ -42,7 +42,7 @@ class _tutorinfoState extends State<tutorinfo> {
     'Sanskrit'
   ];
   String valueChoose;
-  String name, academyname, address, city, language, experience;
+  String name, academyname, address, city, language, experience, fee, mobileno;
   File _image;
   final picker = ImagePicker();
   var pickedFile;
@@ -116,9 +116,7 @@ class _tutorinfoState extends State<tutorinfo> {
                     child: SizedBox(
                       width: 180,
                       height: 180,
-                      child: _image == null
-                          ? Text('No image selected.')
-                          : Image.file(_image),
+                      child: _image != null ? Image.file(_image) : null,
                     ),
                   ),
                 ),
@@ -381,6 +379,72 @@ class _tutorinfoState extends State<tutorinfo> {
                     SizedBox(
                       height: 15,
                     ),
+                    TextField(
+                      textAlign: TextAlign.center,
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                        focusColor: Color(0xFF000000),
+                        floatingLabelBehavior: FloatingLabelBehavior.always,
+                        hintText: "Enter fees per year",
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          borderSide:
+                              BorderSide(color: Colors.blue, width: 1.5),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          borderSide: BorderSide(
+                            width: 1.5,
+                          ),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          borderSide: BorderSide(
+                            width: 1.5,
+                          ),
+                        ),
+                      ),
+                      style: TextStyle(
+                        fontSize: 15,
+                      ),
+                      onChanged: (value) => fee = value,
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    TextField(
+                      textAlign: TextAlign.center,
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                        focusColor: Color(0xFF000000),
+                        floatingLabelBehavior: FloatingLabelBehavior.always,
+                        hintText: "Enter Mobile Number",
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          borderSide:
+                              BorderSide(color: Colors.blue, width: 1.5),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          borderSide: BorderSide(
+                            width: 1.5,
+                          ),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          borderSide: BorderSide(
+                            width: 1.5,
+                          ),
+                        ),
+                      ),
+                      style: TextStyle(
+                        fontSize: 15,
+                      ),
+                      onChanged: (value) => mobileno = value,
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
                     RaisedButton(
                       padding:
                           EdgeInsets.symmetric(horizontal: 50, vertical: 20.0),
@@ -415,7 +479,9 @@ class _tutorinfoState extends State<tutorinfo> {
                                 'experience': int.parse(experience),
                                 'language': valueChoose,
                                 'photourl': url,
-                                'email': tutoruser.email
+                                'email': tutoruser.email,
+                                'fee': int.parse(fee),
+                                'mobileno': int.parse(mobileno)
                               },
                             );
                           } else if (course == "Commerce") {
@@ -432,6 +498,9 @@ class _tutorinfoState extends State<tutorinfo> {
                                 'experience': int.parse(experience),
                                 'language': valueChoose,
                                 'photourl': url,
+                                'email': tutoruser.email,
+                                'fee': int.parse(fee),
+                                'mobileno': int.parse(mobileno)
                               },
                             );
                           } else if (course == "Arts") {
@@ -448,6 +517,9 @@ class _tutorinfoState extends State<tutorinfo> {
                                 'experience': int.parse(experience),
                                 'language': valueChoose,
                                 'photourl': url,
+                                'email': tutoruser.email,
+                                'fee': int.parse(fee),
+                                'mobileno': int.parse(mobileno)
                               },
                             );
                           }
@@ -460,6 +532,9 @@ class _tutorinfoState extends State<tutorinfo> {
                               'experience': int.parse(experience),
                               'language': valueChoose,
                               'photourl': url,
+                              'email': tutoruser.email,
+                              'fee': int.parse(fee),
+                              'mobileno': int.parse(mobileno)
                             },
                           );
                         }

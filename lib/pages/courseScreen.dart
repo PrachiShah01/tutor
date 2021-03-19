@@ -33,7 +33,7 @@ class courseScreen extends StatelessWidget {
             Row(
               children: <Widget>[
                 courseButton(
-                  image: Image.asset('assets/engineericon.png'),
+                  image: Image.asset('assets/arts.png'),
                   text: 'Arts',
                   onpressed: () {
                     Navigator.push(

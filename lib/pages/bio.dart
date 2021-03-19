@@ -260,9 +260,11 @@ class _tutorbioState extends State<tutorbio> {
                                         ),
                                         Flexible(
                                           child: Text(
-                                            (document['mobileno'] == null)
+                                            (document['mobileno'].toString() ==
+                                                    null)
                                                 ? " "
-                                                : document['mobileno'],
+                                                : document['mobileno']
+                                                    .toString(),
                                             style: TextStyle(
                                                 fontWeight: FontWeight.w400,
                                                 fontSize: 18),

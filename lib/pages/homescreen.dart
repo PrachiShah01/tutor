@@ -439,7 +439,6 @@ class _homeScreenState extends State<homeScreen> {
                           SizedBox(
                             height: 6.0,
                           ),
-                          Text('Visit Profile'),
                         ],
                       )
                     ],
