@@ -345,8 +345,8 @@ class _artsScreenState extends State<artsScreen> {
               ],
             ),
             const Divider(
-              height: 30,
-              thickness: 2,
+              height: 30.0,
+              thickness: 2.0,
             ),
             Expanded(
               child: StreamBuilder<QuerySnapshot>(
