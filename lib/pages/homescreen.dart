@@ -15,15 +15,15 @@ class _homeScreenState extends State<homeScreen> {
   final User studentuser = FirebaseAuth.instance.currentUser;
   String subject, filter;
 
-  Stream<QuerySnapshot> st =
-      FirebaseFirestore.instance.collection('tutor').snapshots();
   List subjectList = ['Experience', 'Fees'];
   String valueChoose;
   bool isSelected = true;
 
   Future getPosts() async {
-    QuerySnapshot qn =
-        await FirebaseFirestore.instance.collection('tutor').get();
+    QuerySnapshot qn = await FirebaseFirestore.instance
+        .collection('tutor')
+        .where('language', isEqualTo: "Mathematics")
+        .get();
     return qn.docs;
   }
 
@@ -43,7 +43,6 @@ class _homeScreenState extends State<homeScreen> {
             Container(
               height: 70,
               child: ListView(
-                // This next line does the trick.
                 scrollDirection: Axis.horizontal,
                 children: <Widget>[
                   Container(
@@ -58,11 +57,6 @@ class _homeScreenState extends State<homeScreen> {
                         onPressed: () {
                           setState(() {
                             subject = "Physics";
-
-                            st = FirebaseFirestore.instance
-                                .collection('tutor')
-                                .where('language', isEqualTo: subject)
-                                .snapshots();
                           });
                         },
                         shape: RoundedRectangleBorder(
@@ -84,11 +78,6 @@ class _homeScreenState extends State<homeScreen> {
                         onPressed: () {
                           setState(() {
                             subject = "Chemistry";
-
-                            st = FirebaseFirestore.instance
-                                .collection('tutor')
-                                .where('language', isEqualTo: subject)
-                                .snapshots();
                           });
                         },
                         shape: RoundedRectangleBorder(
@@ -110,11 +99,6 @@ class _homeScreenState extends State<homeScreen> {
                         onPressed: () {
                           setState(() {
                             subject = "Mathematics";
-
-                            st = FirebaseFirestore.instance
-                                .collection('tutor')
-                                .where('language', isEqualTo: subject)
-                                .snapshots();
                           });
                         },
                         shape: RoundedRectangleBorder(
@@ -136,11 +120,6 @@ class _homeScreenState extends State<homeScreen> {
                         onPressed: () {
                           setState(() {
                             subject = "Biology";
-
-                            st = FirebaseFirestore.instance
-                                .collection('tutor')
-                                .where('language', isEqualTo: subject)
-                                .snapshots();
                           });
                         },
                         shape: RoundedRectangleBorder(
@@ -166,14 +145,6 @@ class _homeScreenState extends State<homeScreen> {
                     padding: const EdgeInsets.only(right: 10.0, left: 10.0),
                     child: Container(
                       padding: EdgeInsets.only(left: 10),
-                      // decoration: BoxDecoration(
-                      //   color: Colors.white,
-                      //   borderRadius: BorderRadius.circular(49),
-                      //   border: Border.all(
-                      //       color: Colors.black,
-                      //       style: BorderStyle.solid,
-                      //       width: 1),
-                      // ),
                       width: 50,
                       child: DropdownButton(
                         isExpanded: true,
@@ -194,11 +165,6 @@ class _homeScreenState extends State<homeScreen> {
                         onChanged: (newValue) {
                           setState(() {
                             valueChoose = newValue;
-
-                            st = FirebaseFirestore.instance
-                                .collection('tutor')
-                                .orderBy('experience', descending: true)
-                                .snapshots();
                           });
                         },
                       ),
@@ -219,165 +185,173 @@ class _homeScreenState extends State<homeScreen> {
               thickness: 2,
             ),
             Expanded(
-              child: StreamBuilder<QuerySnapshot>(
-                stream: st,
-                builder: (BuildContext context,
-                    AsyncSnapshot<QuerySnapshot> snapshot) {
-                  if (!snapshot.hasData)
-                    return Center(child: CircularProgressIndicator());
-                  return ListView(
-                    children: snapshot.data.docs.map((document) {
-                      return GestureDetector(
-                        onTap: () {
-                          Navigator.push(
+              child: FutureBuilder(
+                future: getPosts(),
+                builder: (_, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(
+                      child: Text("Loading"),
+                    );
+                  } else {
+                    return ListView.builder(
+                      itemCount: snapshot.data.length,
+                      itemBuilder: (_, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>
-                                      detailInfoPage(tutor: document)));
-                        },
-                        child: Card(
-                          margin: EdgeInsets.all(5),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: <Widget>[
-                                Container(
-                                  width: 90,
-                                  child: Column(
-                                    children: [
-                                      CircleAvatar(
-                                        radius: 30,
-                                        backgroundColor: Colors.black12,
-                                        child: ClipOval(
-                                          child: SizedBox(
-                                            width: 60,
-                                            height: 60,
-                                            child:
-                                                (document['photourl'] == null)
-                                                    ? Image.asset(
-                                                        'assets/teacher.png')
-                                                    : Image.network(
-                                                        document['photourl']),
-                                          ),
-                                        ),
-                                      ),
-                                      Text(
-                                        document['username'],
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w600),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 20,
-                                ),
-                                Flexible(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Row(
-                                        children: [
-                                          // Text(
-                                          //   'Academy Name:',
-                                          //   style: TextStyle(
-                                          //       fontWeight: FontWeight.w600),
-                                          // ),
-                                          // SizedBox(
-                                          //   width: 10,
-                                          // ),
-                                          Flexible(
-                                            child: Text(
-                                              (document['academyname'] == null)
-                                                  ? " "
-                                                  : document['academyname'],
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.w600,
-                                                  fontSize: 20,
-                                                  color: Colors.blue),
+                                builder: (context) =>
+                                    detailInfoPage(tutor: snapshot.data[index]),
+                              ),
+                            );
+                          },
+                          child: Card(
+                            margin: EdgeInsets.all(5),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  Container(
+                                    width: 90,
+                                    child: Column(
+                                      children: [
+                                        CircleAvatar(
+                                          radius: 30,
+                                          backgroundColor: Colors.black12,
+                                          child: ClipOval(
+                                            child: SizedBox(
+                                              width: 60,
+                                              height: 60,
+                                              child: (snapshot.data[index]
+                                                          ['photourl'] ==
+                                                      null)
+                                                  ? Image.asset(
+                                                      'assets/teacher.png')
+                                                  : Image.network(snapshot
+                                                      .data[index]['photourl']),
                                             ),
                                           ),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Text(
-                                        'Classes for:',
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w600),
-                                      ),
-                                      Text(
-                                        (document['language'].toString() ==
-                                                null)
-                                            ? " "
-                                            : document['language'].toString(),
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w400,
                                         ),
-                                      ),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            'Experience:',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w600),
-                                          ),
-                                          SizedBox(
-                                            width: 10,
-                                          ),
-                                          Flexible(
-                                            child: Text(
-                                              (document['experience']
-                                                          .toString() ==
-                                                      null)
-                                                  ? " "
-                                                  : document['experience']
-                                                      .toString(),
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w400,
+                                        Text(
+                                          snapshot.data[index]['username'],
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w600),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 20,
+                                  ),
+                                  Flexible(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Row(
+                                          children: [
+                                            Flexible(
+                                              child: Text(
+                                                (snapshot.data[index]
+                                                            ['academyname'] ==
+                                                        null)
+                                                    ? " "
+                                                    : snapshot.data[index]
+                                                        ['academyname'],
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.w600,
+                                                    fontSize: 20,
+                                                    color: Colors.blue),
                                               ),
                                             ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          'Classes for:',
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w600),
+                                        ),
+                                        Text(
+                                          (snapshot.data[index]['language']
+                                                      .toString() ==
+                                                  null)
+                                              ? " "
+                                              : snapshot.data[index]['language']
+                                                  .toString(),
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w400,
                                           ),
-                                          SizedBox(width: 5),
-                                          Text('years'),
-                                          IconButton(
-                                            icon: Icon(Icons.bookmark_border),
-                                            onPressed: () {
-                                              FirebaseFirestore.instance
-                                                  .collection('student')
-                                                  .doc(studentuser.email)
-                                                  .update({
-                                                "fav": FieldValue.arrayUnion(
-                                                    [document.id]),
-                                              });
-                                            },
-                                          )
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                    ],
+                                        ),
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              'Experience:',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w600),
+                                            ),
+                                            SizedBox(
+                                              width: 10,
+                                            ),
+                                            Flexible(
+                                              child: Text(
+                                                (snapshot.data[index]
+                                                                ['experience']
+                                                            .toString() ==
+                                                        null)
+                                                    ? " "
+                                                    : snapshot.data[index]
+                                                            ['experience']
+                                                        .toString(),
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w400,
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(width: 5),
+                                            Text('years'),
+                                            IconButton(
+                                              icon: Icon(Icons.bookmark_border),
+                                              onPressed: () {
+                                                FirebaseFirestore.instance
+                                                    .collection('student')
+                                                    .doc(studentuser.email)
+                                                    .update({
+                                                  "fav": FieldValue.arrayUnion([
+                                                    snapshot.data[index].id
+                                                  ]),
+                                                });
+                                              },
+                                            )
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
+                            elevation: 30,
                           ),
-                          elevation: 30,
-                        ),
-                      );
-                    }).toList(),
-                  );
+                        );
+                      },
+                    );
+                  }
+                  return Container(height: 0.0, width: 0.0);
                 },
               ),
             ),
