@@ -362,7 +362,7 @@ class _tutorbioState extends State<tutorbio> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => tutorhome(),
+                      builder: (context) => tutorbio(),
                     ),
                   );
                 },
@@ -375,18 +375,6 @@ class _tutorbioState extends State<tutorbio> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => tutorinfo(),
-                    ),
-                  );
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.person),
-                title: Text('Visit Profile', style: TextStyle(fontSize: 15)),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => tutorbio(),
                     ),
                   );
                 },

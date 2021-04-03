@@ -1,17 +1,27 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tutor/pages/homescreen.dart';
+import 'package:tutor/pages/rate.dart';
 
-class detailInfoPage extends StatelessWidget {
+class detailInfoPage extends StatefulWidget {
   final DocumentSnapshot tutor;
   detailInfoPage({Key key, this.tutor}) : super(key: key);
+
+  @override
+  _detailInfoPageState createState() => _detailInfoPageState();
+}
+
+class _detailInfoPageState extends State<detailInfoPage> {
+  final User studentuser = FirebaseAuth.instance.currentUser;
+  bool state = true;
   Image checkImage() {
-    if (tutor['photourl'] == null) {
+    if (widget.tutor['photourl'] == null) {
       return Image.network(
           'https://www.google.com/search?q=person+icon&tbm=isch&source=iu&ictx=1&fir=pg_JAleUZSVcvM%252C4-mZLK2ZaoO83M%252C_&vet=1&usg=AI4_-kRhK74LeEuB1txDM9-3AV3IuhHXhQ&sa=X&ved=2ahUKEwipj_enmLTvAhXZUn0KHUmBC1sQ9QF6BAgKEAE#imgrc=pg_JAleUZSVcvM');
-    } else if (tutor['photourl'] != null) {
-      return Image.network(tutor['photourl']);
+    } else if (widget.tutor['photourl'] != null) {
+      return Image.network(widget.tutor['photourl']);
     }
   }
 
@@ -32,10 +42,10 @@ class detailInfoPage extends StatelessWidget {
                 child: SizedBox(
                   width: 190,
                   height: 190,
-                  child: (tutor['photourl'] == null)
+                  child: (widget.tutor['photourl'] == null)
                       ? Image.asset('assets/teacher.png')
                       : Image.network(
-                          tutor['photourl'],
+                          widget.tutor['photourl'],
                         ),
                 ),
               ),
@@ -67,7 +77,7 @@ class detailInfoPage extends StatelessWidget {
                             ),
                             SizedBox(width: 10),
                             Text(
-                              tutor['username'],
+                              widget.tutor['username'],
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w400,
@@ -88,9 +98,9 @@ class detailInfoPage extends StatelessWidget {
                             SizedBox(width: 10),
                             Flexible(
                               child: Text(
-                                (tutor['academyname'].toString() == null)
+                                (widget.tutor['academyname'].toString() == null)
                                     ? " "
-                                    : tutor['academyname'].toString(),
+                                    : widget.tutor['academyname'].toString(),
                                 style: TextStyle(
                                     fontWeight: FontWeight.w400, fontSize: 18),
                               ),
@@ -110,7 +120,7 @@ class detailInfoPage extends StatelessWidget {
                               ),
                               SizedBox(width: 10),
                               Text(
-                                tutor['email'],
+                                widget.tutor['email'],
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.w400,
@@ -131,9 +141,9 @@ class detailInfoPage extends StatelessWidget {
                             ),
                             SizedBox(width: 10),
                             Text(
-                              (tutor['language'].toString() == null)
+                              (widget.tutor['language'].toString() == null)
                                   ? " "
-                                  : tutor['language'].toString(),
+                                  : widget.tutor['language'].toString(),
                               style: TextStyle(
                                   fontWeight: FontWeight.w400, fontSize: 18),
                             ),
@@ -151,9 +161,9 @@ class detailInfoPage extends StatelessWidget {
                             ),
                             SizedBox(width: 10),
                             Text(
-                              (tutor['experience'].toString() == null)
+                              (widget.tutor['experience'].toString() == null)
                                   ? " "
-                                  : tutor['experience'].toString(),
+                                  : widget.tutor['experience'].toString(),
                               style: TextStyle(
                                   fontWeight: FontWeight.w400, fontSize: 18),
                             ),
@@ -179,9 +189,9 @@ class detailInfoPage extends StatelessWidget {
                             ),
                             SizedBox(width: 10),
                             Text(
-                              (tutor['fee'].toString() == null)
+                              (widget.tutor['fee'].toString() == null)
                                   ? " "
-                                  : tutor['fee'].toString(),
+                                  : widget.tutor['fee'].toString(),
                               style: TextStyle(
                                   fontWeight: FontWeight.w400, fontSize: 18),
                             ),
@@ -207,9 +217,9 @@ class detailInfoPage extends StatelessWidget {
                             ),
                             SizedBox(width: 10),
                             Text(
-                              (tutor['address'].toString() == null)
+                              (widget.tutor['address'].toString() == null)
                                   ? " "
-                                  : tutor['address'].toString(),
+                                  : widget.tutor['address'].toString(),
                               style: TextStyle(
                                   fontWeight: FontWeight.w400, fontSize: 18),
                             ),
@@ -227,9 +237,9 @@ class detailInfoPage extends StatelessWidget {
                             ),
                             SizedBox(width: 10),
                             Text(
-                              (tutor['city'].toString() == null)
+                              (widget.tutor['city'].toString() == null)
                                   ? " "
-                                  : tutor['city'].toString(),
+                                  : widget.tutor['city'].toString(),
                               style: TextStyle(
                                   fontWeight: FontWeight.w400, fontSize: 18),
                             ),
@@ -247,14 +257,23 @@ class detailInfoPage extends StatelessWidget {
                             ),
                             SizedBox(width: 10),
                             Text(
-                              (tutor['mobileno'].toString() == null)
+                              (widget.tutor['mobileno'].toString() == null)
                                   ? " "
-                                  : tutor['mobileno'].toString(),
+                                  : widget.tutor['mobileno'].toString(),
                               style: TextStyle(
                                   fontWeight: FontWeight.w400, fontSize: 18),
                             ),
                           ],
                         ),
+                        RaisedButton(onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  rate(widget.tutor['email'].toString()),
+                            ),
+                          );
+                        })
                       ],
                     ),
                   ),
@@ -267,43 +286,3 @@ class detailInfoPage extends StatelessWidget {
     );
   }
 }
-
-// class detailinfocard extends StatelessWidget {
-//   final IconData icon;
-//   final String text;
-//
-//   const detailinfocard({Key key, @required this.tutor, this.icon, this.text})
-//       : super(key: key);
-//
-//   final DocumentSnapshot tutor;
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Card(
-//       margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-//       child: Padding(
-//         padding: const EdgeInsets.all(8.0),
-//         child: Row(
-//           children: [
-//             Icon(
-//               icon,
-//               color: Colors.black,
-//             ),
-//             SizedBox(
-//               width: 20,
-//             ),
-//             Text(
-//               text,
-//               style: TextStyle(
-//                 fontSize: 18,
-//               ),
-//               textAlign: TextAlign.center,
-//             ),
-//           ],
-//         ),
-//       ),
-//       elevation: 3,
-//       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-//     );
-//   }
-// }

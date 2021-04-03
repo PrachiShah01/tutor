@@ -55,7 +55,7 @@ class _welcomePageState extends State<welcomePage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => tutorhome(),
+                            builder: (context) => tutorbio(),
                           ),
                         );
                       } else {

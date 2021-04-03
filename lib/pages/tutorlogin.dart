@@ -3,12 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:toast/toast.dart';
+import 'package:tutor/pages/bio.dart';
 import 'package:tutor/pages/tutorhome.dart';
-import 'package:tutor/pages/tutorinfo.dart';
 import 'package:tutor/pages/tutorsignup.dart';
 import 'forgot.dart';
-
-import 'bio.dart';
 
 class tutorlogin extends StatefulWidget {
   @override
@@ -196,7 +194,7 @@ class _tutorloginState extends State<tutorlogin> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => tutorhome(),
+                              builder: (context) => tutorbio(),
                             ),
                           );
                         } else {

@@ -354,6 +354,7 @@ class _tutorsignupState extends State<tutorsignup> {
                                     'experience': null,
                                     'language': null,
                                     'photourl': null,
+                                    'rate': null,
                                   },
                                 );
                               }

@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:tutor/pages/favs.dart';
 import 'package:tutor/pages/homescreen.dart';
+import 'package:tutor/pages/scienceScreen.dart';
 import 'package:tutor/pages/welcomepage.dart';
-import 'scienceScreen.dart';
 import 'commerceScreen.dart';
 import 'artsScreen.dart';
 
@@ -65,7 +66,7 @@ class courseScreen extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => homeScreen(),
+                        builder: (context) => scienceScreen(),
                       ),
                     );
                   },
@@ -75,75 +76,6 @@ class courseScreen extends StatelessWidget {
             SizedBox(
               height: 20,
             ),
-            // Row(
-            //   children: <Widget>[
-            //     courseButton(
-            //       image: Image.asset('assets/engineericon.png'),
-            //       text: 'Engineering',
-            //       onpressed: () {},
-            //     ),
-            //     SizedBox(width: 5),
-            //     courseButton(
-            //       image: Image.asset('assets/commerce.png'),
-            //       text: 'Commerce',
-            //       onpressed: () {},
-            //     ),
-            //     SizedBox(width: 5),
-            //     courseButton(
-            //       image: Image.asset('assets/mathsscience.png'),
-            //       text: 'Science',
-            //       onpressed: () {},
-            //     ),
-            //   ],
-            // ),
-            // SizedBox(
-            //   height: 20,
-            // ),
-            // Row(
-            //   children: <Widget>[
-            //     courseButton(
-            //       image: Image.asset('assets/engineericon.png'),
-            //       text: 'Engineering',
-            //       onpressed: () {},
-            //     ),
-            //     SizedBox(width: 5),
-            //     courseButton(
-            //       image: Image.asset('assets/commerce.png'),
-            //       text: 'Commerce',
-            //       onpressed: () {},
-            //     ),
-            //     SizedBox(width: 5),
-            //     courseButton(
-            //       image: Image.asset('assets/mathsscience.png'),
-            //       text: 'Science',
-            //       onpressed: () {},
-            //     ),
-            //   ],
-            // ),
-            // SizedBox(
-            //   height: 20,
-            // ),
-            // Row(
-            //   children: <Widget>[
-            //     courseButton(
-            //       image: Image.asset('assets/engineericon.png'),
-            //       text: 'Engineering',
-            //       onpressed: () {},
-            //     ),
-            //     SizedBox(width: 5),
-            //     courseButton(
-            //       image: Image.asset('assets/commerce.png'),
-            //       text: 'Management & Commerce',
-            //       onpressed: () {},
-            //     ),
-            //     SizedBox(width: 5),
-            //     courseButton(
-            //       image: Image.asset('assets/mathsscience.png'),
-            //       text: 'Mathematics & Science',
-            //       onpressed: () {},
-            //     ),
-            //   ],
-            // ),
           ],
         ),
       ),
@@ -224,18 +156,30 @@ class courseScreen extends StatelessWidget {
                   );
                 },
               ),
-              // ListTile(
-              //   leading: Icon(Icons.person),
-              //   title: Text('Tutor list', style: TextStyle(fontSize: 15)),
-              //   onTap: () {
-              //     Navigator.push(
-              //       context,
-              //       MaterialPageRoute(
-              //         builder: (context) => homeScreen(),
-              //       ),
-              //     );
-              //   },
-              // ),
+              ListTile(
+                leading: Icon(Icons.person),
+                title: Text('Tutor list', style: TextStyle(fontSize: 15)),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => homeScreen(),
+                    ),
+                  );
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.save),
+                title: Text('Saved tutors', style: TextStyle(fontSize: 15)),
+                onTap: () async {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => myfavs(),
+                    ),
+                  );
+                },
+              ),
               ListTile(
                 leading: Icon(Icons.logout),
                 title: Text('Signout', style: TextStyle(fontSize: 15)),

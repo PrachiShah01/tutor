@@ -2,8 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:toast/toast.dart';
 import 'package:tutor/pages/courseScreen.dart';
 import 'package:tutor/pages/detailedinfopage.dart';
+import 'package:tutor/pages/favs.dart';
 import 'package:tutor/pages/welcomepage.dart';
 
 class homeScreen extends StatefulWidget {
@@ -14,16 +16,26 @@ class homeScreen extends StatefulWidget {
 class _homeScreenState extends State<homeScreen> {
   final User studentuser = FirebaseAuth.instance.currentUser;
   String subject, filter;
+  bool changecolor = true;
+  bool state = true;
 
   List subjectList = ['Experience', 'Fees'];
   String valueChoose;
   bool isSelected = true;
 
   Future getPosts() async {
-    QuerySnapshot qn = await FirebaseFirestore.instance
-        .collection('tutor')
-        .where('language', isEqualTo: "Mathematics")
-        .get();
+    QuerySnapshot qn;
+    if (subject == "Mathematics") {
+      qn = await FirebaseFirestore.instance
+          .collection('tutor')
+          .where('language', isEqualTo: "Mathematics")
+          .get();
+    } else if (subject == "Chemistry") {
+      qn = await FirebaseFirestore.instance
+          .collection('tutor')
+          .where('language', isEqualTo: "Chemistry")
+          .get();
+    }
     return qn.docs;
   }
 
@@ -321,19 +333,73 @@ class _homeScreenState extends State<homeScreen> {
                                             ),
                                             SizedBox(width: 5),
                                             Text('years'),
-                                            IconButton(
-                                              icon: Icon(Icons.bookmark_border),
-                                              onPressed: () {
-                                                FirebaseFirestore.instance
-                                                    .collection('student')
-                                                    .doc(studentuser.email)
-                                                    .update({
-                                                  "fav": FieldValue.arrayUnion([
-                                                    snapshot.data[index].id
-                                                  ]),
-                                                });
-                                              },
-                                            )
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              'Rate:',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w600),
+                                            ),
+                                            SizedBox(
+                                              width: 10,
+                                            ),
+                                            Flexible(
+                                              child: Row(
+                                                children: [
+                                                  Text(
+                                                    (snapshot.data[index]
+                                                                    ['rate']
+                                                                .toString() ==
+                                                            null)
+                                                        ? " "
+                                                        : snapshot.data[index]
+                                                                ['rate']
+                                                            .toString(),
+                                                    style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                    ),
+                                                  ),
+                                                  Text("/5"),
+                                                  SizedBox(width: 100),
+                                                  IconButton(
+                                                    icon: Icon(
+                                                      Icons.save,
+                                                      color: Colors.blue,
+                                                    ),
+                                                    onPressed: () {
+                                                      FirebaseFirestore.instance
+                                                          .collection('student')
+                                                          .doc(
+                                                              studentuser.email)
+                                                          .update({
+                                                        "fav": FieldValue
+                                                            .arrayUnion([
+                                                          snapshot.data[index][
+                                                                  'academyname'] +
+                                                              " - " +
+                                                              snapshot.data[
+                                                                      index]
+                                                                  ['username']
+                                                        ]),
+                                                      });
+                                                      Toast.show("Tutor saved",
+                                                          context,
+                                                          duration: Toast
+                                                              .LENGTH_SHORT,
+                                                          gravity:
+                                                              Toast.CENTER);
+                                                    },
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            SizedBox(width: 5),
                                           ],
                                         ),
                                         SizedBox(
@@ -351,7 +417,6 @@ class _homeScreenState extends State<homeScreen> {
                       },
                     );
                   }
-                  return Container(height: 0.0, width: 0.0);
                 },
               ),
             ),
@@ -390,9 +455,6 @@ class _homeScreenState extends State<homeScreen> {
                                 child: SizedBox(
                                   width: 100,
                                   height: 100,
-                                  // child: (document['photourl'] == null)
-                                  //     ? Image.asset('assets/nextbutton.png')
-                                  //     : Image.network(document['photourl']),
                                 ),
                               ),
                             );
@@ -445,6 +507,18 @@ class _homeScreenState extends State<homeScreen> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => homeScreen(),
+                    ),
+                  );
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.save),
+                title: Text('Saved tutors', style: TextStyle(fontSize: 15)),
+                onTap: () async {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => myfavs(),
                     ),
                   );
                 },
