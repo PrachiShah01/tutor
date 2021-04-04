@@ -22,8 +22,9 @@ class _scienceScreenState extends State<scienceScreen> {
       FirebaseFirestore.instance.collection('Science').snapshots();
   List filterlist = ['Experience', 'Fees'];
   List citylist = ['navsari', 'surat'];
-  String filterChoose;
   String cityChoose;
+  String filterChoose;
+
   bool isSelected = true;
 
   Future getPosts() async {
@@ -34,29 +35,51 @@ class _scienceScreenState extends State<scienceScreen> {
           .collection('Science')
           .where('language', isEqualTo: "Physics")
           .get();
+      return qn.docs;
     } else if (subject == "Chemistry") {
       qn = await FirebaseFirestore.instance
           .collection('Science')
           .where('language', isEqualTo: "Chemistry")
           .get();
+      return qn.docs;
     } else if (subject == "Mathematics") {
       qn = await FirebaseFirestore.instance
           .collection('Science')
           .where('language', isEqualTo: "Mathematics")
           .get();
+      return qn.docs;
     } else if (subject == "Biology") {
       qn = await FirebaseFirestore.instance
           .collection('Science')
           .where('language', isEqualTo: "Biology")
           .get();
-    } else {
-      qn = await FirebaseFirestore.instance.collection('Science').get();
-    }
-    if (filterChoose == "Experience") {
+      return qn.docs;
+    } else if (filterChoose == "Experience") {
       qn = await FirebaseFirestore.instance
           .collection('Science')
           .orderBy('experience', descending: true)
           .get();
+      return qn.docs;
+    } else if (filterChoose == "Fees") {
+      qn = await FirebaseFirestore.instance
+          .collection('Science')
+          .orderBy('fee', descending: true)
+          .get();
+      return qn.docs;
+    } else if (cityChoose == "navsari") {
+      qn = await FirebaseFirestore.instance
+          .collection('Science')
+          .where('city', isEqualTo: "navsari")
+          .get();
+      return qn.docs;
+    } else if (cityChoose == "surat") {
+      qn = await FirebaseFirestore.instance
+          .collection('Science')
+          .where('city', isEqualTo: "surat")
+          .get();
+      return qn.docs;
+    } else {
+      qn = await FirebaseFirestore.instance.collection('Science').get();
     }
     return qn.docs;
   }
@@ -200,6 +223,8 @@ class _scienceScreenState extends State<scienceScreen> {
                           onChanged: (newValue) {
                             setState(() {
                               filterChoose = newValue;
+                              cityChoose = null;
+                              subject = null;
                             });
                           },
                         ),
@@ -233,10 +258,8 @@ class _scienceScreenState extends State<scienceScreen> {
                           onChanged: (newValue) {
                             setState(() {
                               cityChoose = newValue;
-                              st = FirebaseFirestore.instance
-                                  .collection('Science')
-                                  .where('city', isEqualTo: cityChoose)
-                                  .snapshots();
+                              subject = null;
+                              filterChoose = null;
                             });
                           },
                         ),
@@ -536,6 +559,7 @@ class _scienceScreenState extends State<scienceScreen> {
                                 child: SizedBox(
                                   width: 100,
                                   height: 100,
+                                  child: Image.asset('assets/student.png'),
                                 ),
                               ),
                             );

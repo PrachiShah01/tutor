@@ -7,6 +7,7 @@ import 'package:tutor/pages/rate.dart';
 
 class detailInfoPage extends StatefulWidget {
   final DocumentSnapshot tutor;
+
   detailInfoPage({Key key, this.tutor}) : super(key: key);
 
   @override
@@ -265,15 +266,33 @@ class _detailInfoPageState extends State<detailInfoPage> {
                             ),
                           ],
                         ),
-                        RaisedButton(onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  rate(widget.tutor['email'].toString()),
+                        SizedBox(height: 20),
+                        Center(
+                          child: RaisedButton(
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Text(
+                                'Give Rate',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.white,
+                                    fontSize: 20),
+                              ),
                             ),
-                          );
-                        })
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      rate(widget.tutor['email'].toString()),
+                                ),
+                              );
+                            },
+                            color: Color(0xFF2829A6),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20)),
+                          ),
+                        )
                       ],
                     ),
                   ),

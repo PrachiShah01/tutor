@@ -77,7 +77,7 @@ flutter:
     - assets/teacher.png
     - assets/student.png
     - assets/arts.png
-
+    - assets/ratingimg.jpg
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

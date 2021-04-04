@@ -67,8 +67,30 @@ class _artsScreenState extends State<artsScreen> {
           .collection('Arts')
           .where('language', isEqualTo: "Sanskrit")
           .get();
+    } else if (cityChoose == "navsari") {
+      qn = await FirebaseFirestore.instance
+          .collection('Arts')
+          .where('city', isEqualTo: "navsari")
+          .get();
+      return qn.docs;
+    } else if (cityChoose == "surat") {
+      qn = await FirebaseFirestore.instance
+          .collection('Arts')
+          .where('city', isEqualTo: "surat")
+          .get();
+      return qn.docs;
+    } else if (filterChoose == "Experience") {
+      qn = await FirebaseFirestore.instance
+          .collection('Arts')
+          .orderBy('experience', descending: true)
+          .get();
+    } else if (filterChoose == "Fees") {
+      qn = await FirebaseFirestore.instance
+          .collection('Arts')
+          .orderBy('fee', descending: true)
+          .get();
     } else {
-      qn = await FirebaseFirestore.instance.collection('Science').get();
+      qn = await FirebaseFirestore.instance.collection('Arts').get();
     }
 
     return qn.docs;
@@ -105,11 +127,6 @@ class _artsScreenState extends State<artsScreen> {
                         onPressed: () {
                           setState(() {
                             subject = "History";
-
-                            st = FirebaseFirestore.instance
-                                .collection('Arts')
-                                .where('language', isEqualTo: subject)
-                                .snapshots();
                           });
                         },
                         shape: RoundedRectangleBorder(
@@ -131,11 +148,6 @@ class _artsScreenState extends State<artsScreen> {
                         onPressed: () {
                           setState(() {
                             subject = "Geography";
-
-                            st = FirebaseFirestore.instance
-                                .collection('Arts')
-                                .where('language', isEqualTo: subject)
-                                .snapshots();
                           });
                         },
                         shape: RoundedRectangleBorder(
@@ -157,11 +169,6 @@ class _artsScreenState extends State<artsScreen> {
                         onPressed: () {
                           setState(() {
                             subject = "Political Science";
-
-                            st = FirebaseFirestore.instance
-                                .collection('Arts')
-                                .where('language', isEqualTo: subject)
-                                .snapshots();
                           });
                         },
                         shape: RoundedRectangleBorder(
@@ -183,11 +190,6 @@ class _artsScreenState extends State<artsScreen> {
                         onPressed: () {
                           setState(() {
                             subject = "Psychology";
-
-                            st = FirebaseFirestore.instance
-                                .collection('Arts')
-                                .where('language', isEqualTo: subject)
-                                .snapshots();
                           });
                         },
                         shape: RoundedRectangleBorder(
@@ -209,11 +211,6 @@ class _artsScreenState extends State<artsScreen> {
                         onPressed: () {
                           setState(() {
                             subject = "Sociology";
-
-                            st = FirebaseFirestore.instance
-                                .collection('Arts')
-                                .where('language', isEqualTo: subject)
-                                .snapshots();
                           });
                         },
                         shape: RoundedRectangleBorder(
@@ -235,11 +232,6 @@ class _artsScreenState extends State<artsScreen> {
                         onPressed: () {
                           setState(() {
                             subject = "English";
-
-                            st = FirebaseFirestore.instance
-                                .collection('Arts')
-                                .where('language', isEqualTo: subject)
-                                .snapshots();
                           });
                         },
                         shape: RoundedRectangleBorder(
@@ -261,11 +253,6 @@ class _artsScreenState extends State<artsScreen> {
                         onPressed: () {
                           setState(() {
                             subject = "Hindi";
-
-                            st = FirebaseFirestore.instance
-                                .collection('Arts')
-                                .where('language', isEqualTo: subject)
-                                .snapshots();
                           });
                         },
                         shape: RoundedRectangleBorder(
@@ -287,11 +274,6 @@ class _artsScreenState extends State<artsScreen> {
                         onPressed: () {
                           setState(() {
                             subject = "Sanskrit";
-
-                            st = FirebaseFirestore.instance
-                                .collection('Arts')
-                                .where('language', isEqualTo: subject)
-                                .snapshots();
                           });
                         },
                         shape: RoundedRectangleBorder(
@@ -309,7 +291,7 @@ class _artsScreenState extends State<artsScreen> {
               thickness: 2,
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
                   child: Container(
@@ -338,11 +320,8 @@ class _artsScreenState extends State<artsScreen> {
                           onChanged: (newValue) {
                             setState(() {
                               filterChoose = newValue;
-
-                              st = FirebaseFirestore.instance
-                                  .collection('Arts')
-                                  .orderBy('experience', descending: true)
-                                  .snapshots();
+                              cityChoose = null;
+                              subject = null;
                             });
                           },
                         ),
@@ -376,10 +355,8 @@ class _artsScreenState extends State<artsScreen> {
                           onChanged: (newValue) {
                             setState(() {
                               cityChoose = newValue;
-                              st = FirebaseFirestore.instance
-                                  .collection('tutor')
-                                  .where('city', isEqualTo: cityChoose)
-                                  .snapshots();
+                              subject = null;
+                              filterChoose = null;
                             });
                           },
                         ),
@@ -679,6 +656,7 @@ class _artsScreenState extends State<artsScreen> {
                                 child: SizedBox(
                                   width: 100,
                                   height: 100,
+                                  child: Image.asset('assets/student.png'),
                                 ),
                               ),
                             );

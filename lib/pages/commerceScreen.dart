@@ -19,8 +19,10 @@ class _commerceScreenState extends State<commerceScreen> {
   bool changecolor = true;
   bool state = true;
 
-  List subjectList = ['Experience', 'Fees'];
-  String valueChoose;
+  List filterlist = ['Experience', 'Fees'];
+  List citylist = ['navsari', 'surat'];
+  String cityChoose;
+  String filterChoose;
   bool isSelected = true;
 
   Future getPosts() async {
@@ -50,8 +52,31 @@ class _commerceScreenState extends State<commerceScreen> {
           .collection('Commerce')
           .where('language', isEqualTo: "Computer")
           .get();
+    } else if (filterChoose == "Experience") {
+      qn = await FirebaseFirestore.instance
+          .collection('Commerce')
+          .orderBy('experience', descending: true)
+          .get();
+    } else if (filterChoose == "Fees") {
+      qn = await FirebaseFirestore.instance
+          .collection('Commerce'
+              '')
+          .orderBy('fee', descending: true)
+          .get();
+    } else if (cityChoose == "navsari") {
+      qn = await FirebaseFirestore.instance
+          .collection('Commerce')
+          .where('city', isEqualTo: "navsari")
+          .get();
+      return qn.docs;
+    } else if (cityChoose == "surat") {
+      qn = await FirebaseFirestore.instance
+          .collection('Commerce')
+          .where('city', isEqualTo: "surat")
+          .get();
+      return qn.docs;
     } else {
-      qn = await FirebaseFirestore.instance.collection('Science').get();
+      qn = await FirebaseFirestore.instance.collection('Commerce').get();
     }
     return qn.docs;
   }
@@ -189,45 +214,76 @@ class _commerceScreenState extends State<commerceScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Container(
-                  width: 250,
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 10.0, left: 10.0),
-                    child: Container(
-                      padding: EdgeInsets.only(left: 10),
-                      width: 50,
-                      child: DropdownButton(
-                        isExpanded: true,
-                        underline: SizedBox(),
-                        hint: Center(
-                          child: Text(
-                            'Select Filter',
+                Expanded(
+                  child: Container(
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 10.0, left: 10.0),
+                      child: Container(
+                        padding: EdgeInsets.only(left: 10),
+                        width: 50,
+                        child: DropdownButton(
+                          isExpanded: true,
+                          underline: SizedBox(),
+                          hint: Center(
+                            child: Text(
+                              'Select Filter',
+                            ),
                           ),
+                          value: filterChoose,
+                          items: filterlist
+                              .map<DropdownMenuItem<String>>((valueItem) {
+                            return DropdownMenuItem(
+                              child: Text(valueItem),
+                              value: valueItem,
+                            );
+                          }).toList(),
+                          onChanged: (newValue) {
+                            setState(() {
+                              filterChoose = newValue;
+                              cityChoose = null;
+                              subject = null;
+                            });
+                          },
                         ),
-                        value: valueChoose,
-                        items: subjectList
-                            .map<DropdownMenuItem<String>>((valueItem) {
-                          return DropdownMenuItem(
-                            child: Text(valueItem),
-                            value: valueItem,
-                          );
-                        }).toList(),
-                        onChanged: (newValue) {
-                          setState(() {
-                            valueChoose = newValue;
-                          });
-                        },
                       ),
                     ),
                   ),
                 ),
-                Container(
-                  child: Icon(
-                    Icons.filter_alt,
-                    color: Color(0xFF2829A6),
-                    size: 30,
+                Expanded(
+                  child: Container(
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 10.0, left: 10.0),
+                      child: Container(
+                        padding: EdgeInsets.only(left: 10),
+                        width: 50,
+                        child: DropdownButton(
+                          isExpanded: true,
+                          underline: SizedBox(),
+                          hint: Center(
+                            child: Text(
+                              'Select City',
+                            ),
+                          ),
+                          value: cityChoose,
+                          items: citylist
+                              .map<DropdownMenuItem<String>>((valueItem) {
+                            return DropdownMenuItem(
+                              child: Text(valueItem),
+                              value: valueItem,
+                            );
+                          }).toList(),
+                          onChanged: (newValue) {
+                            setState(() {
+                              cityChoose = newValue;
+                              filterChoose = null;
+                              subject = null;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
                   ),
-                )
+                ),
               ],
             ),
             const Divider(
@@ -407,35 +463,6 @@ class _commerceScreenState extends State<commerceScreen> {
                                             //       ),
                                             //       Text("/5"),
                                             //       SizedBox(width: 100),
-                                            //       IconButton(
-                                            //         icon: Icon(
-                                            //           Icons.save,
-                                            //           color: Colors.blue,
-                                            //         ),
-                                            //         onPressed: () {
-                                            //           FirebaseFirestore.instance
-                                            //               .collection('student')
-                                            //               .doc(
-                                            //                   studentuser.email)
-                                            //               .update({
-                                            //             "fav": FieldValue
-                                            //                 .arrayUnion([
-                                            //               snapshot.data[index][
-                                            //                       'academyname'] +
-                                            //                   " - " +
-                                            //                   snapshot.data[
-                                            //                           index]
-                                            //                       ['username']
-                                            //             ]),
-                                            //           });
-                                            //           Toast.show("Tutor saved",
-                                            //               context,
-                                            //               duration: Toast
-                                            //                   .LENGTH_SHORT,
-                                            //               gravity:
-                                            //                   Toast.CENTER);
-                                            //         },
-                                            //       ),
                                             //     ],
                                             //   ),
                                             // ),
@@ -520,6 +547,7 @@ class _commerceScreenState extends State<commerceScreen> {
                                 child: SizedBox(
                                   width: 100,
                                   height: 100,
+                                  child: Image.asset('assets/student.png'),
                                 ),
                               ),
                             );

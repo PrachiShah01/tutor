@@ -157,18 +157,6 @@ class courseScreen extends StatelessWidget {
                 },
               ),
               ListTile(
-                leading: Icon(Icons.person),
-                title: Text('Tutor list', style: TextStyle(fontSize: 15)),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => homeScreen(),
-                    ),
-                  );
-                },
-              ),
-              ListTile(
                 leading: Icon(Icons.save),
                 title: Text('Saved tutors', style: TextStyle(fontSize: 15)),
                 onTap: () async {
